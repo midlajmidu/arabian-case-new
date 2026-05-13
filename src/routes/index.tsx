@@ -34,7 +34,7 @@ function Index() {
 
       {/* Navbar */}
       <header className="relative z-10 px-6 lg:px-16 py-5 flex items-center justify-between">
-        <img src={logo} alt="Arabian Cases & Furniture" className="h-12 w-auto" />
+        <img src={logo} alt="Arabian Cases & Furniture" className="h-20 w-auto" />
         <nav className="hidden md:flex items-center gap-9">
           {navItems.map((item, i) => (
             <a
@@ -86,9 +86,9 @@ function Index() {
           </div>
           {/* Floating glass card */}
           <div className="absolute bottom-6 left-0 backdrop-blur-md bg-white/70 border border-white/60 rounded-2xl px-5 py-4 shadow-xl shadow-brand-navy/10">
-            <p className="text-[10px] uppercase tracking-[0.2em] text-brand-dark-gray">Est. 2010</p>
-            <p className="font-display text-2xl text-brand-navy">15+ Years</p>
-            <p className="text-xs text-brand-dark-gray">of Gulf craftsmanship</p>
+            <p className="text-[10px] uppercase tracking-[0.2em] text-brand-dark-gray">New Studio</p>
+            <p className="font-display text-2xl text-brand-navy">Just Launched</p>
+            <p className="text-xs text-brand-dark-gray">crafting bespoke interiors</p>
           </div>
         </div>
       </main>
