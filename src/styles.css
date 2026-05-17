@@ -69,6 +69,12 @@
   --brand-navy: oklch(0.27 0.10 268);
   --brand-gray: oklch(0.72 0.005 285);
   --brand-dark-gray: oklch(0.42 0.005 285);
+  --brand-navy-hover: oklch(0.33 0.11 268);
+  --brand-gold: oklch(0.78 0.13 85);
+  --brand-soft-bg: oklch(0.985 0.002 247);
+  --brand-border: oklch(0.93 0.003 247);
+  --brand-text-secondary: oklch(0.55 0.02 250);
+  --brand-success: oklch(0.55 0.15 145);
   --font-display: "Playfair Display", serif;
   --font-sans: "Poppins", system-ui, sans-serif;
   --card: oklch(1 0 0);
@@ -152,7 +158,17 @@
   .text-brand-navy { color: var(--brand-navy); }
   .text-brand-gray { color: var(--brand-gray); }
   .text-brand-dark-gray { color: var(--brand-dark-gray); }
+  .text-brand-gold { color: var(--brand-gold); }
+  .text-brand-text-secondary { color: var(--brand-text-secondary); }
   .bg-brand-navy { background-color: var(--brand-navy); }
+  .bg-brand-navy-hover { background-color: var(--brand-navy-hover); }
+  .hover\:bg-brand-navy-hover:hover { background-color: var(--brand-navy-hover); }
   .bg-brand-gray { background-color: var(--brand-gray); }
+  .bg-brand-soft { background-color: var(--brand-soft-bg); }
+  .bg-brand-gold { background-color: var(--brand-gold); }
   .border-brand-navy { border-color: var(--brand-navy); }
+  .border-brand-border { border-color: var(--brand-border); }
+  .border-brand-gold { border-color: var(--brand-gold); }
+  h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); }
+  .container-page { max-width: 1280px; margin-inline: auto; padding-inline: 24px; }
 }
