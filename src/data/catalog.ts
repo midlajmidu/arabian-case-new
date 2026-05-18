@@ -424,8 +424,12 @@ export const categories: Category[] = [
   },
 ];
 
-export const getCategory = (slug: string) => categories.find((c) => c.slug === slug);
-export const getProduct = (catSlug: string, prodSlug: string) => {
+export const getCategory = (slug: string): Category | undefined =>
+  categories.find((c) => c.slug === slug);
+export const getProduct = (
+  catSlug: string,
+  prodSlug: string,
+): { category: Category; product: Product } | undefined => {
   const cat = getCategory(catSlug);
   if (!cat) return undefined;
   const product = cat.products.find((p) => p.slug === prodSlug);
