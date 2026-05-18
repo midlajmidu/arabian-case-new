@@ -1,8 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import type {} from "@tanstack/react-start";
 import { categories } from "@/data/catalog";
 
-// TODO: replace with your project URL once a project name or custom domain is set.
 const BASE_URL = "";
 
 export const Route = createFileRoute("/sitemap.xml")({
@@ -22,6 +20,3 @@ export const Route = createFileRoute("/sitemap.xml")({
     },
   },
 });
-*** Add File: public/robots.txt
-User-agent: *
-Allow: /
