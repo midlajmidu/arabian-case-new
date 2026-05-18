@@ -4,7 +4,7 @@ import { Breadcrumbs, breadcrumbJsonLd } from "@/components/site/Breadcrumbs";
 import { FAQ, faqJsonLd } from "@/components/site/FAQ";
 import { CTABanner } from "@/components/site/CTABanner";
 import { WhatsAppButton } from "@/components/site/WhatsAppButton";
-import { getProduct } from "@/data/catalog";
+import { getProduct, type Category, type Product } from "@/data/catalog";
 import { CheckCircle2, Truck, ShieldCheck, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
@@ -53,7 +53,7 @@ export const Route = createFileRoute("/products/$category/$product")({
 });
 
 function ProductPage() {
-  const { category: c, product: p } = Route.useLoaderData();
+  const { category: c, product: p } = Route.useLoaderData() as { category: Category; product: Product };
   const [sent, setSent] = useState(false);
   const related = c.products.filter((x) => x.slug !== p.slug).slice(0, 3);
 
