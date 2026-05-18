@@ -3,7 +3,7 @@ import { Section, SectionHeader } from "@/components/site/Section";
 import { Breadcrumbs, breadcrumbJsonLd } from "@/components/site/Breadcrumbs";
 import { FAQ, faqJsonLd } from "@/components/site/FAQ";
 import { CTABanner } from "@/components/site/CTABanner";
-import { categories, getCategory } from "@/data/catalog";
+import { categories, getCategory, type Category } from "@/data/catalog";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export const Route = createFileRoute("/products/$category")({
@@ -50,7 +50,7 @@ export const Route = createFileRoute("/products/$category")({
 });
 
 function CategoryPage() {
-  const { category: c } = Route.useLoaderData();
+  const { category: c } = Route.useLoaderData() as { category: Category };
   const others = categories.filter((x) => x.slug !== c.slug).slice(0, 3);
 
   return (
