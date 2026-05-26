@@ -1,85 +1,80 @@
 import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowRight, ChevronLeft, ChevronRight, ShieldCheck, Sparkles, Truck } from "lucide-react";
 import { cn } from "@/lib/utils";
 import flightCasesImg from "@/assets/hero-flight-cases.jpg";
 import foamImg from "@/assets/hero-foam-inserts.jpg";
 import cratesImg from "@/assets/hero-shipping-crates.jpg";
 import bagsImg from "@/assets/hero-custom-bags.jpg";
-import exhibitionImg from "@/assets/hero-exhibition.jpg";
 import furnitureImg from "@/assets/hero-furniture-premium.jpg";
 
 interface Slide {
-  eyebrow: string;
+  category: string;
   title: string;
-  emphasis: string;
   description: string;
   image: string;
   imageAlt: string;
-  primary: { label: string; to: string; params?: Record<string, string> };
+  href: { to: string; params?: Record<string, string> };
 }
 
 const slides: Slide[] = [
   {
-    eyebrow: "Flight Cases",
-    title: "Premium Flight Cases Built for",
-    emphasis: "Maximum Protection",
+    category: "Flight Cases",
+    title: "Premium Flight Cases Built for Maximum Protection",
     description:
-      "Custom-designed flight cases engineered for professional equipment, broadcasting, events and industrial applications.",
+      "Custom-built cases designed for industrial equipment and transport applications.",
     image: flightCasesImg,
     imageAlt: "Premium flight cases manufactured in UAE",
-    primary: { label: "View Products", to: "/products/$category", params: { category: "flight-cases" } },
+    href: { to: "/products/$category", params: { category: "flight-cases" } },
   },
   {
-    eyebrow: "Foam Inserts",
-    title: "Precision Foam Inserts &",
-    emphasis: "Tool Control Boards",
+    category: "Shipping Crates",
+    title: "Heavy-Duty Shipping Crates for Global Export",
     description:
-      "CNC and laser-cut foam tailored to your equipment — from 5S tool control to padded interior fit-outs.",
-    image: foamImg,
-    imageAlt: "Custom foam inserts UAE",
-    primary: { label: "Explore Foam", to: "/products/$category", params: { category: "foam-inserts" } },
-  },
-  {
-    eyebrow: "Shipping Crates",
-    title: "Heavy-Duty Crates for",
-    emphasis: "Global Export",
-    description:
-      "ISPM-15 certified wooden crates, pallets and bespoke boxes for safe road, sea and air freight from the UAE.",
+      "ISPM-15 certified wooden crates engineered for sea, air and road freight from the UAE.",
     image: cratesImg,
     imageAlt: "Heavy-duty shipping crates Dubai",
-    primary: { label: "Crate Solutions", to: "/products/$category", params: { category: "shipping-crates" } },
+    href: { to: "/products/$category", params: { category: "shipping-crates" } },
   },
   {
-    eyebrow: "Custom Bags",
-    title: "Custom Bags & Covers,",
-    emphasis: "Built to Last",
+    category: "Foam Inserts",
+    title: "Precision CNC Foam Inserts & Tool Control",
+    description:
+      "Laser and CNC-cut foam tailored to your equipment — from 5S tool control to padded interiors.",
+    image: foamImg,
+    imageAlt: "Custom foam inserts UAE",
+    href: { to: "/products/$category", params: { category: "foam-inserts" } },
+  },
+  {
+    category: "Custom Bags",
+    title: "Custom Bags & Covers, Built to Last",
     description:
       "Ballistic-nylon equipment bags, dust covers and tool pouches — branded and built for the field.",
     image: bagsImg,
     imageAlt: "Custom equipment bags UAE",
-    primary: { label: "View Bags", to: "/products/$category", params: { category: "custom-bags" } },
+    href: { to: "/products/$category", params: { category: "custom-bags" } },
   },
   {
-    eyebrow: "Exhibition",
-    title: "Premium Exhibition Stands &",
-    emphasis: "Event Builds",
+    category: "Furniture",
+    title: "Custom Furniture Manufacturing in the UAE",
     description:
-      "Shell scheme upgrades, custom stands, outdoor kiosks and photo ops engineered for the UAE event circuit.",
-    image: exhibitionImg,
-    imageAlt: "Exhibition stand builders UAE",
-    primary: { label: "Exhibition Solutions", to: "/products/$category", params: { category: "exhibition" } },
-  },
-  {
-    eyebrow: "Furniture",
-    title: "Custom Office & Premium",
-    emphasis: "Furniture",
-    description:
-      "Bespoke furniture manufacturing for offices, schools, hospitality and homes — designed and built in the UAE.",
+      "Bespoke furniture for offices, hospitality and homes — designed and built in our Dubai facility.",
     image: furnitureImg,
     imageAlt: "Custom office furniture Dubai",
-    primary: { label: "View Furniture", to: "/products/$category", params: { category: "furniture" } },
+    href: { to: "/products/$category", params: { category: "furniture" } },
   },
+];
+
+const stats = [
+  { value: "500+", label: "Projects Completed" },
+  { value: "100+", label: "Corporate Clients" },
+  { value: "100%", label: "Custom Solutions" },
+];
+
+const features = [
+  { icon: Sparkles, label: "Premium Quality" },
+  { icon: ShieldCheck, label: "Custom Solutions" },
+  { icon: Truck, label: "On-Time Delivery" },
 ];
 
 export function HeroSlider() {
@@ -90,96 +85,129 @@ export function HeroSlider() {
   }, []);
 
   const go = (i: number) => setActive((i + slides.length) % slides.length);
+  const s = slides[active];
 
   return (
-    <section className="relative h-[calc(100vh-90px)] min-h-[560px] w-full overflow-hidden bg-brand-navy">
-      {slides.map((s, i) => (
-        <div
-          key={i}
-          className={cn(
-            "absolute inset-0 transition-opacity duration-1000",
-            i === active ? "opacity-100" : "opacity-0 pointer-events-none",
-          )}
-          aria-hidden={i !== active}
-        >
-          <img
-            src={s.image}
-            alt={s.imageAlt}
-            width={1920}
-            height={1088}
-            className="absolute inset-0 h-full w-full object-cover"
-            loading={i === 0 ? "eager" : "lazy"}
-            fetchPriority={i === 0 ? "high" : "auto"}
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/95 via-brand-navy/70 to-brand-navy/30" />
-          <div className="container-page relative z-10 flex h-full items-center">
-            <div className="max-w-2xl text-white">
-              <p className="mb-4 text-[11px] font-medium uppercase tracking-[0.32em] text-brand-gold">
-                {s.eyebrow}
-              </p>
-              {i === 0 ? (
-                <h1 className="font-display text-[32px] md:text-[44px] lg:text-[60px] xl:text-[64px] leading-[1.05]">
-                  {s.title}
-                  <br />
-                  <span className="italic font-medium">{s.emphasis}</span>
-                </h1>
-              ) : (
-                <p className="font-display text-[32px] md:text-[44px] lg:text-[60px] xl:text-[64px] leading-[1.05]">
-                  {s.title}
-                  <br />
-                  <span className="italic font-medium">{s.emphasis}</span>
+    <section className="relative overflow-hidden bg-white">
+      <div className="container-page py-14 md:py-20 lg:py-24">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
+          {/* LEFT */}
+          <div className="animate-fade-up">
+            <span className="inline-flex items-center rounded-full border border-brand-border bg-brand-soft px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-brand-navy">
+              Premium Industrial Manufacturing UAE
+            </span>
+            <h1 className="mt-5 font-display text-brand-navy">
+              Custom Manufacturing Solutions for{" "}
+              <span className="italic text-brand-navy/90">Cases, Furniture & Industrial Products</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-base md:text-lg text-brand-text-secondary leading-relaxed">
+              Engineered and built in our Dubai facility — flight cases, foam inserts, shipping crates,
+              bags, exhibition stands and bespoke furniture delivered across the UAE & GCC.
+            </p>
+
+            <div className="mt-7 grid grid-cols-3 gap-4 max-w-md">
+              {stats.map((st) => (
+                <div key={st.label}>
+                  <p className="font-display text-3xl md:text-[34px] text-brand-navy leading-none">{st.value}</p>
+                  <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-brand-text-secondary leading-tight">{st.label}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-8 flex flex-wrap gap-3">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand-navy/15 transition hover:bg-brand-navy-hover hover:scale-[1.02]"
+              >
+                Get Quote <ArrowRight className="h-4 w-4" />
+              </Link>
+              <Link
+                to="/products"
+                className="inline-flex items-center gap-2 rounded-full border border-brand-navy/20 bg-white px-6 py-3 text-sm font-semibold text-brand-navy transition hover:bg-brand-soft"
+              >
+                Explore Products
+              </Link>
+            </div>
+
+            <div className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3">
+              {features.map((f) => (
+                <div key={f.label} className="flex items-center gap-2 text-sm text-brand-text-secondary">
+                  <f.icon className="h-4 w-4 text-brand-gold" />
+                  <span className="font-medium text-brand-navy">{f.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* RIGHT — slider card */}
+          <div className="relative">
+            <div className="relative overflow-hidden rounded-[24px] border border-brand-border bg-brand-navy shadow-2xl shadow-brand-navy/10 aspect-[4/5] lg:aspect-[5/6]">
+              {slides.map((slide, i) => (
+                <div
+                  key={i}
+                  className={cn(
+                    "absolute inset-0 transition-opacity duration-700",
+                    i === active ? "opacity-100" : "opacity-0 pointer-events-none",
+                  )}
+                  aria-hidden={i !== active}
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.imageAlt}
+                    loading={i === 0 ? "eager" : "lazy"}
+                    fetchPriority={i === 0 ? "high" : "auto"}
+                    className="absolute inset-0 h-full w-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/55 to-transparent" />
+                </div>
+              ))}
+
+              <div className="absolute inset-x-0 bottom-0 z-10 p-6 md:p-8 text-white">
+                <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-brand-gold">
+                  {s.category}
                 </p>
-              )}
-              <p className="mt-6 max-w-xl text-base md:text-lg leading-relaxed text-white/85">
-                {s.description}
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
+                <h2 className="mt-3 font-display text-2xl md:text-3xl leading-tight">{s.title}</h2>
+                <p className="mt-3 text-sm text-white/80 leading-relaxed max-w-md">{s.description}</p>
                 <Link
-                  to={s.primary.to as never}
-                  params={s.primary.params as never}
-                  className="inline-flex items-center gap-2 rounded-[10px] bg-white px-6 py-3 text-sm font-semibold text-brand-navy transition hover:scale-[1.02]"
+                  to={s.href.to as never}
+                  params={s.href.params as never}
+                  className="mt-5 inline-flex items-center gap-2 rounded-full bg-white px-5 py-2.5 text-xs font-semibold text-brand-navy transition hover:scale-[1.03]"
                 >
-                  {s.primary.label} <ArrowRight className="h-4 w-4" />
-                </Link>
-                <Link
-                  to="/contact"
-                  className="inline-flex items-center gap-2 rounded-[10px] border border-white/40 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
-                >
-                  Get Quote
+                  View Product <ArrowRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
+
+              <button
+                onClick={() => go(active - 1)}
+                aria-label="Previous slide"
+                className="absolute left-3 top-1/2 z-20 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition hover:bg-white/25"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
+              <button
+                onClick={() => go(active + 1)}
+                aria-label="Next slide"
+                className="absolute right-3 top-1/2 z-20 -translate-y-1/2 grid h-10 w-10 place-items-center rounded-full border border-white/25 bg-white/10 text-white backdrop-blur transition hover:bg-white/25"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
+            </div>
+
+            <div className="mt-5 flex items-center justify-center gap-2">
+              {slides.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => go(i)}
+                  aria-label={`Slide ${i + 1}`}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all",
+                    i === active ? "w-8 bg-brand-navy" : "w-4 bg-brand-border hover:bg-brand-navy/40",
+                  )}
+                />
+              ))}
             </div>
           </div>
         </div>
-      ))}
-
-      <button
-        onClick={() => go(active - 1)}
-        aria-label="Previous slide"
-        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 z-20 grid h-12 w-12 place-items-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20"
-      >
-        <ChevronLeft className="h-5 w-5" />
-      </button>
-      <button
-        onClick={() => go(active + 1)}
-        aria-label="Next slide"
-        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 z-20 grid h-12 w-12 place-items-center rounded-full border border-white/30 bg-white/10 text-white backdrop-blur-md transition hover:bg-white/20"
-      >
-        <ChevronRight className="h-5 w-5" />
-      </button>
-
-      <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 flex items-center gap-3">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => go(i)}
-            aria-label={`Slide ${i + 1}`}
-            className={cn(
-              "h-1.5 rounded-full transition-all",
-              i === active ? "w-10 bg-white" : "w-5 bg-white/40 hover:bg-white/60",
-            )}
-          />
-        ))}
       </div>
     </section>
   );

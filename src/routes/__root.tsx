@@ -11,6 +11,7 @@ import {
 import appCss from "../styles.css?url";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
+import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
 import { SITE } from "@/lib/site";
 
 function NotFoundComponent() {
@@ -151,6 +152,7 @@ function RootComponent() {
           <Outlet />
         </main>
         <Footer />
+        <FloatingWhatsApp />
       </div>
     </QueryClientProvider>
   );
