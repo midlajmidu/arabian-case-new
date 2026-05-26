@@ -1,8 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowRight } from "lucide-react";
 import logo from "@/assets/logo.png";
-import { WhatsAppButton } from "./WhatsAppButton";
 
 const nav = [
   { to: "/", label: "Home" },
@@ -35,7 +34,12 @@ export function Navbar() {
           ))}
         </nav>
         <div className="hidden lg:block">
-          <WhatsAppButton label="WhatsApp" />
+          <Link
+            to="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-navy/15 transition hover:bg-brand-navy-hover hover:scale-[1.03] hover:shadow-lg"
+          >
+            Get a Quote <ArrowRight className="h-4 w-4" />
+          </Link>
         </div>
         <button
           onClick={() => setOpen((o) => !o)}
@@ -58,9 +62,13 @@ export function Navbar() {
                 {item.label}
               </Link>
             ))}
-            <div className="pt-3">
-              <WhatsAppButton className="w-full justify-center" />
-            </div>
+            <Link
+              to="/contact"
+              onClick={() => setOpen(false)}
+              className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full bg-brand-navy px-5 py-3 text-sm font-semibold text-white"
+            >
+              Get a Quote <ArrowRight className="h-4 w-4" />
+            </Link>
           </div>
         </div>
       )}
