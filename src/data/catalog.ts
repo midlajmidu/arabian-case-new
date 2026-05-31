@@ -4,6 +4,7 @@ import cratesImg from "@/assets/hero-shipping-crates.jpg";
 import bagsImg from "@/assets/hero-custom-bags.jpg";
 import exhibitionImg from "@/assets/hero-exhibition.jpg";
 import furnitureImg from "@/assets/hero-furniture-premium.jpg";
+import coversImg from "@/assets/hero-custom-bags.jpg";
 
 export interface Product {
   slug: string;
