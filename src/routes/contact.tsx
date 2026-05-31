@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const faqs = [
   { q: "How fast can I get a quote?", a: "Within 24 hours of receiving your brief or equipment specifications." },
-  { q: "Do you ship outside the UAE?", a: "Yes — across the GCC and internationally with ISPM-15 export packaging." },
+  { q: "Do you deliver across the UAE?", a: "Yes — we deliver to all seven emirates and offer on-site installation where required." },
   { q: "Can I visit your factory?", a: "Yes, factory visits are welcome by appointment at our Dubai facility." },
   { q: "Do you offer installation?", a: "Yes — full on-site installation and after-sales support across the UAE." },
   { q: "What's your minimum order?", a: "We accept single-unit custom orders as well as large production runs." },
@@ -74,7 +74,7 @@ function ContactPage() {
             <div className="rounded-[18px] border border-brand-border bg-white p-6">
               <Phone className="h-5 w-5 text-brand-gold" />
               <p className="mt-3 font-display text-lg text-brand-navy">Call</p>
-              <a href={`tel:${SITE.phone}`} className="mt-1 text-sm text-brand-text-secondary hover:text-brand-navy">{SITE.phone}</a>
+              <a href={`tel:${SITE.phoneIntl}`} className="mt-1 text-sm text-brand-text-secondary hover:text-brand-navy">{SITE.phone}</a>
             </div>
             <div className="rounded-[18px] border border-brand-border bg-white p-6">
               <Mail className="h-5 w-5 text-brand-gold" />
@@ -87,8 +87,8 @@ function ContactPage() {
 
         <div className="mt-12 overflow-hidden rounded-[18px] border border-brand-border">
           <iframe
-            title="Dubai map"
-            src="https://www.google.com/maps?q=Dubai+Industrial+Area&output=embed"
+            title="Arabian Cases Dubai"
+            src="https://www.google.com/maps?q=26th+A+Street+Umm+Ramool+Dubai&output=embed"
             className="h-[360px] w-full"
             loading="lazy"
           />

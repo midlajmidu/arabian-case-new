@@ -4,6 +4,7 @@ import cratesImg from "@/assets/hero-shipping-crates.jpg";
 import bagsImg from "@/assets/hero-custom-bags.jpg";
 import exhibitionImg from "@/assets/hero-exhibition.jpg";
 import furnitureImg from "@/assets/hero-furniture-premium.jpg";
+import coversImg from "@/assets/hero-custom-bags.jpg";
 
 export interface Product {
   slug: string;
@@ -44,8 +45,8 @@ const baseFaqs = (label: string, location = "UAE") => [
     a: `Standard production runs are 1–3 weeks depending on size, finish and quantity. Express timelines are available for events and broadcast deadlines.`,
   },
   {
-    q: `Do you deliver across the UAE and GCC?`,
-    a: `Yes — we deliver across the UAE, Saudi Arabia, Oman, Qatar, Bahrain and Kuwait, and we handle international export documentation and crating.`,
+    q: `Do you deliver across the UAE?`,
+    a: `Yes — we deliver across all seven emirates and offer on-site installation where required.`,
   },
   {
     q: `Can you brand the products with our logo?`,
@@ -53,7 +54,7 @@ const baseFaqs = (label: string, location = "UAE") => [
   },
   {
     q: `What materials and certifications do you use?`,
-    a: `We use 9mm marine plywood, aircraft-grade aluminium extrusion, ABS, polyethylene foam, and ISPM-15 certified timber for export crates.`,
+    a: `We use premium birch plywood, Penn Elcom hardware, high-quality furniture wood, aluminium extrusion, ABS, industrial-grade polyethylene foam and ISPM-15 certified timber for export crates.`,
   },
   {
     q: `How do I request a quote?`,
@@ -93,11 +94,11 @@ const mkProduct = (
 export const categories: Category[] = [
   {
     slug: "flight-cases",
-    title: "Flight Cases",
+    title: "Flight Cases, Mixer & Speaker Cases",
     short: "Flight Cases",
-    tagline: "Premium Flight Cases Built for Maximum Protection",
+    tagline: "Custom Flight Cases Built for Protection",
     description:
-      "Custom-designed flight cases engineered for professional equipment, broadcasting, events and industrial applications across the UAE and GCC.",
+      "Custom-manufactured flight cases, rack cases, mixer cases and speaker cases — built in our Dubai facility for professional equipment, broadcasting, events and touring use across the UAE.",
     image: flightCasesImg,
     imageAlt: "Premium custom flight cases manufactured in UAE",
     imageName: "flight-cases-uae",
@@ -185,9 +186,9 @@ export const categories: Category[] = [
     slug: "foam-inserts",
     title: "Foam Inserts",
     short: "Foam Inserts",
-    tagline: "Precision Custom Foam Inserts & Tool Control",
+    tagline: "Custom Foam Inserts for Secure Transport",
     description:
-      "CNC-cut and laser-cut foam inserts for cases, drawers and toolboxes — engineered for tool control, equipment protection and shadow boards.",
+      "Precision CNC and laser-cut foam inserts for cases, drawers and toolboxes — manufactured to your equipment dimensions for secure transport and tool control.",
     image: foamImg,
     imageAlt: "Custom CNC foam inserts UAE",
     imageName: "custom-foam-inserts-uae",
@@ -233,7 +234,7 @@ export const categories: Category[] = [
     slug: "hard-cases",
     title: "Hard Cases",
     short: "Hard Cases",
-    tagline: "Waterproof & Crushproof Hard Cases",
+    tagline: "Waterproof Hard Cases Built for the Field",
     description:
       "Pelican-style injection-moulded hard cases with custom foam — built for defence, medical and field-deployment use.",
     image: flightCasesImg,
@@ -256,9 +257,9 @@ export const categories: Category[] = [
     slug: "shipping-crates",
     title: "Shipping Crates",
     short: "Shipping Crates",
-    tagline: "Heavy-Duty Shipping Crates & Export Packaging",
+    tagline: "Premium Packaging & Shipping Crates",
     description:
-      "ISPM-15 compliant wooden crates, pallets and boxes for safe road, sea and air freight from the UAE worldwide.",
+      "ISPM-15 compliant wooden crates, pallets and custom boxes — manufactured in Dubai for safe road, sea and air freight.",
     image: cratesImg,
     imageAlt: "Heavy-duty wooden shipping crates Dubai",
     imageName: "shipping-crates-dubai",
@@ -291,7 +292,7 @@ export const categories: Category[] = [
     slug: "custom-bags",
     title: "Custom Bags & Covers",
     short: "Custom Bags",
-    tagline: "Custom Equipment Bags, Covers & Pouches",
+    tagline: "Custom Equipment Bags & Pouches",
     description:
       "Heavy-duty bags, dust covers and tool pouches manufactured from ballistic nylon and reinforced canvas — branded for your team.",
     image: bagsImg,
@@ -332,7 +333,7 @@ export const categories: Category[] = [
     slug: "exhibition",
     title: "Exhibition Stands",
     short: "Exhibition",
-    tagline: "Premium Exhibition Stands & Event Builds",
+    tagline: "Custom Exhibition Stands & Event Builds",
     description:
       "Shell scheme upgrades, custom-built exhibition stands, outdoor kiosks and event photo ops engineered for the UAE event circuit.",
     image: exhibitionImg,
@@ -373,9 +374,9 @@ export const categories: Category[] = [
     slug: "furniture",
     title: "Furniture",
     short: "Furniture",
-    tagline: "Custom Office, School & Premium Furniture",
+    tagline: "Custom Furniture Fabrication",
     description:
-      "Bespoke furniture manufacturing for offices, schools, hotels and homes — designed, built and installed across the UAE.",
+      "Bespoke furniture fabrication for offices, schools, hotels and homes — designed, manufactured and installed across the UAE.",
     image: furnitureImg,
     imageAlt: "Custom office furniture Dubai UAE",
     imageName: "office-furniture-dubai",
@@ -420,6 +421,54 @@ export const categories: Category[] = [
         ["Mall retail", "Showrooms", "Pop-ups"],
         ["Retail"],
         "Custom retail display unit"),
+    ],
+  },
+  {
+    slug: "utility-covers",
+    title: "Utility Covers",
+    short: "Utility Covers",
+    tagline: "Protective Covers Made to Your Specifications",
+    description:
+      "Custom-manufactured utility covers for machinery, generators, equipment and outdoor assets — built from heavy-duty weatherproof materials to your exact dimensions.",
+    image: coversImg,
+    imageAlt: "Custom utility covers manufactured in Dubai UAE",
+    imageName: "utility-covers-uae",
+    features: [
+      "Heavy-duty weatherproof fabric",
+      "Tailored to your equipment",
+      "Reinforced stitching",
+      "Velcro, zip or drawcord closure",
+      "UV and dust resistant",
+      "Optional branded panels",
+    ],
+    applications: ["Machinery protection", "Generator covers", "Outdoor equipment", "Vehicle covers"],
+    industries: ["Construction", "Oil & Gas", "Events", "Manufacturing"],
+    faqs: baseFaqs("Utility Covers"),
+    products: [
+      mkProduct("machinery-covers", "Machinery Covers", "Custom protective covers for industrial machinery",
+        "Tailored covers that shield machinery from dust, moisture and UV exposure between use.",
+        ["Weatherproof fabric", "Custom dimensions", "Reinforced seams", "Easy on/off"],
+        ["Factories", "Workshops", "Production lines"],
+        ["Manufacturing", "Oil & Gas"],
+        "Industrial machinery cover"),
+      mkProduct("generator-covers", "Generator Covers", "All-weather covers for portable and standby generators",
+        "Heavy-duty covers built to the exact footprint of your generator with ventilation and access panels.",
+        ["Vented panels", "Tailored fit", "UV resistant", "Branded option"],
+        ["Construction sites", "Backup power", "Events"],
+        ["Construction", "Events"],
+        "Generator weatherproof cover"),
+      mkProduct("equipment-covers", "Equipment Covers", "Dust and weather covers for sensitive equipment",
+        "Custom dust covers for AV, broadcast, medical and exhibition equipment.",
+        ["Soft-lined interior", "Anti-static option", "Velcro closure", "Brandable"],
+        ["AV gear", "Medical equipment", "Exhibition assets"],
+        ["Events", "Medical"],
+        "Custom equipment dust cover"),
+      mkProduct("outdoor-covers", "Outdoor Covers", "Weatherproof covers for outdoor installations",
+        "Tailored outdoor covers for HVAC units, signage and outdoor displays — rated for UAE climate.",
+        ["UV stabilised fabric", "Drawcord base", "Reinforced corners", "Custom sizing"],
+        ["HVAC units", "Signage", "Outdoor displays"],
+        ["Construction", "Retail"],
+        "Outdoor equipment cover"),
     ],
   },
 ];

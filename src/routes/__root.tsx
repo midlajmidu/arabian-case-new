@@ -107,7 +107,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
             addressRegion: SITE.address.region,
             addressCountry: "AE",
           },
-          areaServed: ["AE", "SA", "OM", "QA", "BH", "KW"],
+          areaServed: ["AE"],
         }),
       },
       {

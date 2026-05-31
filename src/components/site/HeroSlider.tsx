@@ -20,45 +20,45 @@ interface Slide {
 const slides: Slide[] = [
   {
     category: "Flight Cases",
-    title: "Premium Flight Cases Built for Maximum Protection",
+    title: "Custom Flight Cases Built for Protection",
     description:
-      "Custom-built cases designed for industrial equipment and transport applications.",
+      "Manufactured in our Dubai facility for professional equipment, broadcasting and touring use.",
     image: flightCasesImg,
     imageAlt: "Premium flight cases manufactured in UAE",
     href: { to: "/products/$category", params: { category: "flight-cases" } },
   },
   {
     category: "Shipping Crates",
-    title: "Heavy-Duty Shipping Crates for Global Export",
+    title: "Premium Packaging & Shipping Crates",
     description:
-      "ISPM-15 certified wooden crates engineered for sea, air and road freight from the UAE.",
+      "ISPM-15 certified wooden crates and custom packaging for sea, air and road freight.",
     image: cratesImg,
     imageAlt: "Heavy-duty shipping crates Dubai",
     href: { to: "/products/$category", params: { category: "shipping-crates" } },
   },
   {
     category: "Foam Inserts",
-    title: "Precision CNC Foam Inserts & Tool Control",
+    title: "Custom Foam Inserts for Secure Transport",
     description:
-      "Laser and CNC-cut foam tailored to your equipment — from 5S tool control to padded interiors.",
+      "Laser and CNC-cut foam manufactured to your equipment dimensions.",
     image: foamImg,
     imageAlt: "Custom foam inserts UAE",
     href: { to: "/products/$category", params: { category: "foam-inserts" } },
   },
   {
-    category: "Custom Bags",
-    title: "Custom Bags & Covers, Built to Last",
+    category: "Bags & Covers",
+    title: "Custom Bags, Covers & Packaging Built to Last",
     description:
-      "Ballistic-nylon equipment bags, dust covers and tool pouches — branded and built for the field.",
+      "Heavy-duty equipment bags, utility covers and industrial packaging built in Dubai.",
     image: bagsImg,
     imageAlt: "Custom equipment bags UAE",
     href: { to: "/products/$category", params: { category: "custom-bags" } },
   },
   {
     category: "Furniture",
-    title: "Custom Furniture Manufacturing in the UAE",
+    title: "Quality Furniture Fabrication, Made in Dubai",
     description:
-      "Bespoke furniture for offices, hospitality and homes — designed and built in our Dubai facility.",
+      "Bespoke furniture for offices, hospitality and homes — manufactured in our Dubai facility.",
     image: furnitureImg,
     imageAlt: "Custom office furniture Dubai",
     href: { to: "/products/$category", params: { category: "furniture" } },
@@ -66,9 +66,9 @@ const slides: Slide[] = [
 ];
 
 const stats = [
-  { value: "500+", label: "Projects Completed" },
-  { value: "100+", label: "Corporate Clients" },
-  { value: "100%", label: "Custom Solutions" },
+  { value: "150+", label: "Projects Completed" },
+  { value: "50+", label: "Corporate Clients" },
+  { value: "100%", label: "Custom Built" },
 ];
 
 const features = [
@@ -94,15 +94,15 @@ export function HeroSlider() {
           {/* LEFT */}
           <div className="animate-fade-up">
             <span className="inline-flex items-center rounded-full border border-brand-border bg-brand-soft px-3 py-1 text-[11px] font-medium uppercase tracking-[0.22em] text-brand-navy">
-              Premium Industrial Manufacturing UAE
+              Manufactured in Dubai, UAE
             </span>
             <h1 className="mt-5 font-display text-brand-navy">
-              Custom Manufacturing Solutions for{" "}
-              <span className="italic text-brand-navy/90">Cases, Furniture & Industrial Products</span>
+              Custom Cases, Covers & Packaging{" "}
+              <span className="italic text-brand-navy/90">Built to Last</span>
             </h1>
             <p className="mt-5 max-w-xl text-base md:text-lg text-brand-text-secondary leading-relaxed">
-              Engineered and built in our Dubai facility — flight cases, foam inserts, shipping crates,
-              bags, exhibition stands and bespoke furniture delivered across the UAE & GCC.
+              Manufacturers of flight cases, mixer & speaker cases, utility covers, foam inserts,
+              shipping crates, custom bags and bespoke furniture — built in our Dubai facility for clients across the UAE.
             </p>
 
             <div className="mt-7 grid grid-cols-3 gap-4 max-w-md">

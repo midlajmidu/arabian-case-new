@@ -29,17 +29,17 @@ function AboutPage() {
         <div className="absolute inset-0 bg-gradient-to-r from-brand-navy via-brand-navy/90 to-brand-navy/60" />
         <div className="container-page relative py-24 md:py-32">
           <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "About" }]} />
-          <h1 className="mt-6 font-display text-4xl md:text-6xl leading-tight max-w-3xl">Crafted in the UAE. <span className="italic">Built for the world.</span></h1>
-          <p className="mt-5 max-w-2xl text-white/80 text-lg leading-relaxed">{SITE.description}</p>
+          <h1 className="mt-6 font-display text-4xl md:text-6xl leading-tight max-w-3xl">Dubai-based manufacturer of <span className="italic">cases, covers & furniture.</span></h1>
+          <p className="mt-5 max-w-2xl text-white/80 text-lg leading-relaxed">A specialist manufacturer of custom flight cases, protective covers, foam inserts, shipping crates, custom packaging and furniture fabrication — built in-house in our Dubai facility.</p>
         </div>
       </div>
 
       <Section>
         <div className="grid gap-12 lg:grid-cols-3">
           {[
-            { icon: Target, title: "Our Mission", text: "Deliver custom-engineered cases, crates and furniture that protect what matters and elevate the brands we work with." },
-            { icon: Eye, title: "Our Vision", text: "To be the UAE's most trusted manufacturing partner for industrial cases, exhibition builds and bespoke furniture." },
-            { icon: Award, title: "Our Values", text: "Quality, craftsmanship and an obsession with on-time delivery — every order, every time." },
+            { icon: Target, title: "Our Mission", text: "Manufacture custom cases, covers, packaging and furniture that protect equipment and elevate the brands we work with." },
+            { icon: Eye, title: "Our Vision", text: "To be the UAE's most trusted manufacturer of protective cases, custom packaging and furniture fabrication." },
+            { icon: Award, title: "Our Values", text: "Quality materials, precision craftsmanship and on-time delivery — every order, every time." },
           ].map(({ icon: Icon, title, text }) => (
             <div key={title} className="rounded-[18px] border border-brand-border bg-white p-8">
               <Icon className="h-8 w-8 text-brand-gold" />
@@ -51,10 +51,10 @@ function AboutPage() {
       </Section>
 
       <Section className="bg-brand-soft">
-        <SectionHeader eyebrow="Our Story" title="From a single workshop to a full-service manufacturer" />
+        <SectionHeader eyebrow="Our Story" title="A Dubai workshop built on protective manufacturing" />
         <div className="grid gap-8 md:grid-cols-2 text-brand-text-secondary leading-relaxed">
-          <p>Arabian Cases & Furniture was founded to give UAE businesses a single, dependable manufacturing partner for cases, crates and custom furniture — replacing scattered overseas suppliers with one local team that owns design, build and delivery.</p>
-          <p>Today our Dubai facility produces flight cases for broadcasters and touring crews, ISPM-15 crates for oil & gas exporters, foam inserts for aviation MRO, and bespoke furniture for offices, schools and hotels across the country.</p>
+          <p>Arabian Cases & Furniture was founded in 2016 as a specialist manufacturer of flight cases and custom packaging — giving UAE businesses a dependable in-country source for protective cases, covers and crates.</p>
+          <p>Today our Dubai facility produces flight cases, rack and mixer cases, utility covers, CNC foam inserts, ISPM-15 shipping crates, custom bags and bespoke furniture — all manufactured under one roof to your exact specifications.</p>
         </div>
       </Section>
 
@@ -62,9 +62,12 @@ function AboutPage() {
         <SectionHeader eyebrow="Timeline" title="Milestones" align="center" />
         <div className="relative mx-auto max-w-3xl space-y-8">
           {[
-            { year: "Day One", text: "Studio launched in Dubai with a focus on flight cases and foam." },
-            { year: "Expansion", text: "Added shipping crates, custom bags and exhibition builds." },
-            { year: "Today", text: "Full-service manufacturing across 7 product categories, serving the UAE & GCC." },
+            { year: "2016", text: "Company established in Dubai with a focus on protective cases." },
+            { year: "2017", text: "Focused on custom packaging production for UAE businesses." },
+            { year: "2018", text: "Expanded flight case manufacturing — rack, mixer and speaker cases." },
+            { year: "2020", text: "Introduced precision foam insert production with CNC and laser cutting." },
+            { year: "2022", text: "Expanded into furniture manufacturing for offices, hotels and schools." },
+            { year: "2024", text: "150+ projects completed for 50+ corporate clients across the UAE." },
           ].map((m) => (
             <div key={m.year} className="rounded-[18px] border border-brand-border bg-white p-6 flex gap-6">
               <p className="font-display text-2xl text-brand-gold w-28 shrink-0">{m.year}</p>
