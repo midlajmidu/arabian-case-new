@@ -1,9 +1,9 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { Section, SectionHeader } from "@/components/site/Section";
 import { CTABanner } from "@/components/site/CTABanner";
 import { Breadcrumbs, breadcrumbJsonLd } from "@/components/site/Breadcrumbs";
 import { SITE } from "@/lib/site";
-import { ArrowRight, Target, Eye, Award } from "lucide-react";
+import { CheckCircle2, Package, Layers, Sofa, Shield, Boxes, Wrench } from "lucide-react";
 import heroImg from "@/assets/hero-furniture-premium.jpg";
 
 export const Route = createFileRoute("/about")({
@@ -35,50 +35,48 @@ function AboutPage() {
       </div>
 
       <Section>
-        <div className="grid gap-12 lg:grid-cols-3">
+        <SectionHeader eyebrow="About Us" title="A specialist Dubai manufacturer" />
+        <div className="grid gap-8 md:grid-cols-2 text-brand-text-secondary leading-relaxed text-lg">
+          <p>Arabian Cases & Furniture is a Dubai-based manufacturer focused on protective cases, custom packaging, utility covers and bespoke furniture for businesses across the UAE.</p>
+          <p>Every product is designed, built and finished in-house at our Dubai facility — giving our clients direct access to the makers, control over specifications and dependable lead times.</p>
+        </div>
+      </Section>
+
+      <Section className="bg-brand-soft">
+        <SectionHeader eyebrow="Capabilities" title="What we manufacture" />
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {[
-            { icon: Target, title: "Our Mission", text: "Manufacture custom cases, covers, packaging and furniture that protect equipment and elevate the brands we work with." },
-            { icon: Eye, title: "Our Vision", text: "To be the UAE's most trusted manufacturer of protective cases, custom packaging and furniture fabrication." },
-            { icon: Award, title: "Our Values", text: "Quality materials, precision craftsmanship and on-time delivery — every order, every time." },
+            { icon: Package, title: "Flight Cases", text: "Rack cases, mixer & speaker cases, cable trunks, TV screen cases and DJ tables." },
+            { icon: Shield, title: "Utility Covers", text: "Weatherproof covers for machinery, generators and outdoor equipment." },
+            { icon: Layers, title: "Foam Inserts", text: "Precision CNC and laser-cut foam for tool control and equipment protection." },
+            { icon: Boxes, title: "Shipping Crates", text: "ISPM-15 certified wooden crates, pallets and custom export boxes." },
+            { icon: Wrench, title: "Custom Bags & Packaging", text: "Ballistic nylon equipment bags, pouches and protective transport packaging." },
+            { icon: Sofa, title: "Furniture Production", text: "Bespoke office, hospitality and school furniture — fabricated in-house." },
           ].map(({ icon: Icon, title, text }) => (
             <div key={title} className="rounded-[18px] border border-brand-border bg-white p-8">
               <Icon className="h-8 w-8 text-brand-gold" />
-              <h2 className="mt-5 font-display text-2xl text-brand-navy">{title}</h2>
+              <h3 className="mt-5 font-display text-xl text-brand-navy">{title}</h3>
               <p className="mt-3 text-brand-text-secondary leading-relaxed">{text}</p>
             </div>
           ))}
         </div>
       </Section>
 
-      <Section className="bg-brand-soft">
-        <SectionHeader eyebrow="Our Story" title="A Dubai workshop built on protective manufacturing" />
-        <div className="grid gap-8 md:grid-cols-2 text-brand-text-secondary leading-relaxed">
-          <p>Arabian Cases & Furniture was founded in 2016 as a specialist manufacturer of flight cases and custom packaging — giving UAE businesses a dependable in-country source for protective cases, covers and crates.</p>
-          <p>Today our Dubai facility produces flight cases, rack and mixer cases, utility covers, CNC foam inserts, ISPM-15 shipping crates, custom bags and bespoke furniture — all manufactured under one roof to your exact specifications.</p>
-        </div>
-      </Section>
-
       <Section>
-        <SectionHeader eyebrow="Timeline" title="Milestones" align="center" />
-        <div className="relative mx-auto max-w-3xl space-y-8">
+        <SectionHeader eyebrow="Why Us" title="Why choose Arabian Cases & Furniture" />
+        <div className="mx-auto max-w-3xl grid gap-4">
           {[
-            { year: "2016", text: "Company established in Dubai with a focus on protective cases." },
-            { year: "2017", text: "Focused on custom packaging production for UAE businesses." },
-            { year: "2018", text: "Expanded flight case manufacturing — rack, mixer and speaker cases." },
-            { year: "2020", text: "Introduced precision foam insert production with CNC and laser cutting." },
-            { year: "2022", text: "Expanded into furniture manufacturing for offices, hotels and schools." },
-            { year: "2024", text: "150+ projects completed for 50+ corporate clients across the UAE." },
-          ].map((m) => (
-            <div key={m.year} className="rounded-[18px] border border-brand-border bg-white p-6 flex gap-6">
-              <p className="font-display text-2xl text-brand-gold w-28 shrink-0">{m.year}</p>
-              <p className="text-brand-text-secondary leading-relaxed">{m.text}</p>
+            "In-house Dubai manufacturing — no middlemen, full control over quality.",
+            "Built to your exact specifications, dimensions and branding.",
+            "Premium materials — birch plywood, aluminium extrusion, industrial foams, ISPM-15 timber.",
+            "Reliable lead times for events, broadcast and project deadlines.",
+            "UAE-wide delivery and on-site installation where required.",
+          ].map((r) => (
+            <div key={r} className="flex items-start gap-3 rounded-[12px] border border-brand-border bg-white p-5">
+              <CheckCircle2 className="h-5 w-5 text-brand-gold mt-0.5 shrink-0" />
+              <p className="text-brand-dark-gray">{r}</p>
             </div>
           ))}
-        </div>
-        <div className="mt-12 text-center">
-          <Link to="/contact" className="inline-flex items-center gap-2 rounded-[10px] bg-brand-navy px-6 py-3 text-sm font-semibold text-white transition hover:bg-brand-navy-hover">
-            Start a project <ArrowRight className="h-4 w-4" />
-          </Link>
         </div>
       </Section>
 
