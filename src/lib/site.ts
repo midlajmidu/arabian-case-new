@@ -1,18 +1,19 @@
 export const SITE = {
   name: "Arabian Cases & Furniture",
   shortName: "Arabian Cases",
-  tagline: "Premium Industrial Manufacturing in the UAE",
+  tagline: "Dubai Manufacturer of Custom Cases, Covers, Packaging & Furniture",
   description:
-    "Custom flight cases, foam inserts, shipping crates, bags, exhibition stands and furniture, manufactured in the UAE for broadcasting, events, aviation, oil & gas and corporate clients.",
-  phone: "+971 50 000 0000",
-  whatsapp: "971500000000",
-  email: "info@arabiancases.ae",
+    "Dubai-based manufacturer of custom flight cases, rack cases, mixer & speaker cases, utility covers, foam inserts, shipping crates, custom bags, industrial packaging and bespoke furniture — built in-house for businesses across the UAE.",
+  phone: "0585822700",
+  phoneIntl: "+971585822700",
+  whatsapp: "971585822700",
+  email: "sales@arabiancases.com",
   address: {
-    street: "Industrial Area 1",
+    street: "26th A Street, Umm Ramool",
     city: "Dubai",
     region: "Dubai",
     country: "United Arab Emirates",
-    postal: "00000",
+    postal: "",
   },
 };
 
