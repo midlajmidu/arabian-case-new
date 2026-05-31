@@ -13,7 +13,7 @@ export function Footer() {
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">{SITE.description}</p>
           <div className="mt-6 flex gap-3">
             <a href="#" aria-label="Facebook" className="grid h-9 w-9 place-items-center rounded-full border border-white/15 transition hover:bg-white/10"><Facebook className="h-4 w-4" /></a>
-            <a href="#" aria-label="Instagram" className="grid h-9 w-9 place-items-center rounded-full border border-white/15 transition hover:bg-white/10"><Instagram className="h-4 w-4" /></a>
+            <a href="https://www.instagram.com/arabiancases/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid h-9 w-9 place-items-center rounded-full border border-white/15 transition hover:bg-white/10"><Instagram className="h-4 w-4" /></a>
             <a href="#" aria-label="LinkedIn" className="grid h-9 w-9 place-items-center rounded-full border border-white/15 transition hover:bg-white/10"><Linkedin className="h-4 w-4" /></a>
           </div>
         </div>
