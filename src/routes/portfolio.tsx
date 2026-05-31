@@ -10,7 +10,7 @@ export const Route = createFileRoute("/portfolio")({
   head: () => ({
     meta: [
       { title: "Portfolio — Arabian Cases & Furniture UAE" },
-      { name: "description", content: "Selected projects across flight cases, foam, crates, bags, exhibition and furniture for UAE & GCC clients." },
+      { name: "description", content: "Selected manufacturing projects across flight cases, covers, foam, crates, bags, exhibition and furniture for UAE clients." },
       { property: "og:title", content: "Portfolio" },
       { property: "og:url", content: "/portfolio" },
     ],

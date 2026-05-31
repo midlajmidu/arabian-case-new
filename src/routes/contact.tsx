@@ -9,7 +9,7 @@ import { useState } from "react";
 
 const faqs = [
   { q: "How fast can I get a quote?", a: "Within 24 hours of receiving your brief or equipment specifications." },
-  { q: "Do you ship outside the UAE?", a: "Yes — across the GCC and internationally with ISPM-15 export packaging." },
+  { q: "Do you deliver across the UAE?", a: "Yes — we deliver to all seven emirates and offer on-site installation where required." },
   { q: "Can I visit your factory?", a: "Yes, factory visits are welcome by appointment at our Dubai facility." },
   { q: "Do you offer installation?", a: "Yes — full on-site installation and after-sales support across the UAE." },
   { q: "What's your minimum order?", a: "We accept single-unit custom orders as well as large production runs." },

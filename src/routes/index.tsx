@@ -16,7 +16,7 @@ export const Route = createFileRoute("/")({
       { title: `${SITE.name} — Premium Flight Cases, Foam, Crates & Furniture UAE` },
       { name: "description", content: SITE.description },
       { name: "keywords", content: "flight cases UAE, custom foam inserts Dubai, shipping crates Dubai, exhibition stands UAE, office furniture Dubai, industrial manufacturing UAE" },
-      { property: "og:title", content: `${SITE.name} — Premium UAE Industrial Manufacturing` },
+      { property: "og:title", content: `${SITE.name} — Dubai Manufacturer of Cases, Covers & Furniture` },
       { property: "og:description", content: SITE.description },
       { property: "og:url", content: "/" },
     ],
