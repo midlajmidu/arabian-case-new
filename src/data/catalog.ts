@@ -93,11 +93,11 @@ const mkProduct = (
 export const categories: Category[] = [
   {
     slug: "flight-cases",
-    title: "Flight Cases",
+    title: "Flight Cases, Mixer & Speaker Cases",
     short: "Flight Cases",
-    tagline: "Premium Flight Cases Built for Maximum Protection",
+    tagline: "Custom Flight Cases Built for Protection",
     description:
-      "Custom-designed flight cases engineered for professional equipment, broadcasting, events and industrial applications across the UAE and GCC.",
+      "Custom-manufactured flight cases, rack cases, mixer cases and speaker cases — built in our Dubai facility for professional equipment, broadcasting, events and touring use across the UAE.",
     image: flightCasesImg,
     imageAlt: "Premium custom flight cases manufactured in UAE",
     imageName: "flight-cases-uae",
@@ -185,9 +185,9 @@ export const categories: Category[] = [
     slug: "foam-inserts",
     title: "Foam Inserts",
     short: "Foam Inserts",
-    tagline: "Precision Custom Foam Inserts & Tool Control",
+    tagline: "Custom Foam Inserts for Secure Transport",
     description:
-      "CNC-cut and laser-cut foam inserts for cases, drawers and toolboxes — engineered for tool control, equipment protection and shadow boards.",
+      "Precision CNC and laser-cut foam inserts for cases, drawers and toolboxes — manufactured to your equipment dimensions for secure transport and tool control.",
     image: foamImg,
     imageAlt: "Custom CNC foam inserts UAE",
     imageName: "custom-foam-inserts-uae",
@@ -233,7 +233,7 @@ export const categories: Category[] = [
     slug: "hard-cases",
     title: "Hard Cases",
     short: "Hard Cases",
-    tagline: "Waterproof & Crushproof Hard Cases",
+    tagline: "Waterproof Hard Cases Built for the Field",
     description:
       "Pelican-style injection-moulded hard cases with custom foam — built for defence, medical and field-deployment use.",
     image: flightCasesImg,
@@ -256,9 +256,9 @@ export const categories: Category[] = [
     slug: "shipping-crates",
     title: "Shipping Crates",
     short: "Shipping Crates",
-    tagline: "Heavy-Duty Shipping Crates & Export Packaging",
+    tagline: "Premium Packaging & Shipping Crates",
     description:
-      "ISPM-15 compliant wooden crates, pallets and boxes for safe road, sea and air freight from the UAE worldwide.",
+      "ISPM-15 compliant wooden crates, pallets and custom boxes — manufactured in Dubai for safe road, sea and air freight.",
     image: cratesImg,
     imageAlt: "Heavy-duty wooden shipping crates Dubai",
     imageName: "shipping-crates-dubai",
@@ -291,7 +291,7 @@ export const categories: Category[] = [
     slug: "custom-bags",
     title: "Custom Bags & Covers",
     short: "Custom Bags",
-    tagline: "Custom Equipment Bags, Covers & Pouches",
+    tagline: "Custom Equipment Bags & Pouches",
     description:
       "Heavy-duty bags, dust covers and tool pouches manufactured from ballistic nylon and reinforced canvas — branded for your team.",
     image: bagsImg,
@@ -332,7 +332,7 @@ export const categories: Category[] = [
     slug: "exhibition",
     title: "Exhibition Stands",
     short: "Exhibition",
-    tagline: "Premium Exhibition Stands & Event Builds",
+    tagline: "Custom Exhibition Stands & Event Builds",
     description:
       "Shell scheme upgrades, custom-built exhibition stands, outdoor kiosks and event photo ops engineered for the UAE event circuit.",
     image: exhibitionImg,
@@ -373,9 +373,9 @@ export const categories: Category[] = [
     slug: "furniture",
     title: "Furniture",
     short: "Furniture",
-    tagline: "Custom Office, School & Premium Furniture",
+    tagline: "Custom Furniture Fabrication",
     description:
-      "Bespoke furniture manufacturing for offices, schools, hotels and homes — designed, built and installed across the UAE.",
+      "Bespoke furniture fabrication for offices, schools, hotels and homes — designed, manufactured and installed across the UAE.",
     image: furnitureImg,
     imageAlt: "Custom office furniture Dubai UAE",
     imageName: "office-furniture-dubai",
