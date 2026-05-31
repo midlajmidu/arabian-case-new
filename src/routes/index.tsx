@@ -26,11 +26,11 @@ export const Route = createFileRoute("/")({
 });
 
 const whyUs = [
-  { icon: Award, title: "Premium Materials", desc: "Marine plywood, aircraft-grade aluminium and ballistic nylon." },
-  { icon: Sparkles, title: "Custom Manufacturing", desc: "Every product engineered to your exact specification." },
+  { icon: Award, title: "Premium Materials", desc: "Built using premium birch plywood, Penn Elcom hardware, high-quality furniture wood, and industrial-grade foam materials." },
+  { icon: Sparkles, title: "Custom Manufacturing", desc: "Every product is built according to your requirements, dimensions, and specifications." },
   { icon: Users, title: "Experienced Team", desc: "Designers, engineers and craftsmen with decades on the floor." },
-  { icon: Truck, title: "Fast Delivery", desc: "Express production and on-time UAE-wide delivery." },
-  { icon: ShieldCheck, title: "UAE & GCC Service", desc: "Local manufacturing with full GCC export capability." },
+  { icon: Truck, title: "Fast Delivery", desc: "Across UAE — express production and on-time delivery." },
+  { icon: ShieldCheck, title: "Made in Dubai", desc: "End-to-end manufacturing under one roof in our Dubai facility." },
   { icon: Headphones, title: "After-Sales Support", desc: "End-to-end support from brief to delivery and beyond." },
 ];
 
@@ -65,7 +65,7 @@ function Index() {
       <Section className="bg-white !py-20 md:!py-24">
         <SectionHeader
           eyebrow="Why Choose Us"
-          title="Quality. Reliability. Precision."
+            title="Quality. Craftsmanship. Precision."
           align="center"
         />
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -89,7 +89,7 @@ function Index() {
         <SectionHeader
           eyebrow="Our Process"
           title="From Brief to Delivery"
-          description="A streamlined process for high-quality custom manufacturing."
+          description="A streamlined manufacturing process — from your brief to finished, on-time delivery."
           align="center"
         />
         <div className="relative">
@@ -113,8 +113,8 @@ function Index() {
       <Section className="!py-20 md:!py-24">
         <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
           <div className="max-w-2xl">
-            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.28em] text-brand-gold">Featured Products</p>
-            <h2 className="font-display text-brand-navy">Best-selling manufacturing lines</h2>
+            <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.28em] text-brand-gold">Our Manufacturing</p>
+            <h2 className="font-display text-brand-navy">Cases, covers, packaging & furniture</h2>
           </div>
           <div className="flex gap-2">
             <button
@@ -175,8 +175,8 @@ function Index() {
             <p className="mb-3 text-[11px] font-medium uppercase tracking-[0.28em] text-brand-gold">UAE Coverage</p>
             <h2 className="font-display text-brand-navy">Delivery across all seven emirates</h2>
             <p className="mt-4 text-base text-brand-text-secondary leading-relaxed max-w-lg">
-              From our Dubai facility we deliver to every emirate and ship project cargo across the wider GCC,
-              with on-site installation and after-sales support included.
+              From our Dubai facility we deliver to every emirate, with on-site installation and
+              after-sales support included.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">

@@ -4,8 +4,8 @@ import { WhatsAppButton } from "./WhatsAppButton";
 import heroFlight from "@/assets/hero-flight-cases.jpg";
 
 export function CTABanner({
-  title = "Need Custom Industrial Solutions?",
-  description = "From flight cases and foam inserts to furniture and exhibition setups, we create custom solutions tailored around your requirements.",
+  title = "Need a Custom Manufacturing Quote?",
+  description = "Cases, covers, foam, crates and furniture — manufactured in Dubai to your exact specifications. Tell us what you need and we'll respond within 24 hours.",
 }: { title?: string; description?: string }) {
   return (
     <section className="relative overflow-hidden">
