@@ -44,8 +44,8 @@ const baseFaqs = (label: string, location = "UAE") => [
     a: `Standard production runs are 1–3 weeks depending on size, finish and quantity. Express timelines are available for events and broadcast deadlines.`,
   },
   {
-    q: `Do you deliver across the UAE and GCC?`,
-    a: `Yes — we deliver across the UAE, Saudi Arabia, Oman, Qatar, Bahrain and Kuwait, and we handle international export documentation and crating.`,
+    q: `Do you deliver across the UAE?`,
+    a: `Yes — we deliver across all seven emirates and offer on-site installation where required.`,
   },
   {
     q: `Can you brand the products with our logo?`,
@@ -53,7 +53,7 @@ const baseFaqs = (label: string, location = "UAE") => [
   },
   {
     q: `What materials and certifications do you use?`,
-    a: `We use 9mm marine plywood, aircraft-grade aluminium extrusion, ABS, polyethylene foam, and ISPM-15 certified timber for export crates.`,
+    a: `We use premium birch plywood, Penn Elcom hardware, high-quality furniture wood, aluminium extrusion, ABS, industrial-grade polyethylene foam and ISPM-15 certified timber for export crates.`,
   },
   {
     q: `How do I request a quote?`,
