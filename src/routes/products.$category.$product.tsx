@@ -10,14 +10,6 @@ import {
   ArrowRight,
   Phone,
   Mail,
-  ChevronLeft,
-  ChevronRight,
-  Plane,
-  Briefcase,
-  Headphones,
-  Shield,
-  Factory,
-  Truck,
 } from "lucide-react";
 import { useState } from "react";
 import { SITE } from "@/lib/site";
@@ -66,26 +58,11 @@ export const Route = createFileRoute("/products/$category/$product")({
   component: ProductPage,
 });
 
-const industryIcons: Record<string, typeof Plane> = {
-  Aviation: Plane,
-  Broadcasting: Headphones,
-  Events: Briefcase,
-  Corporate: Briefcase,
-  Medical: Shield,
-  Defence: Shield,
-  "Oil & Gas": Factory,
-  Manufacturing: Factory,
-  Logistics: Truck,
-  Construction: Factory,
-  Retail: Briefcase,
-};
-
 function ProductPage() {
   const { category: c, product: p } = Route.useLoaderData() as { category: Category; product: Product };
   const [activeImg, setActiveImg] = useState(0);
-  const gallery = [c.image, c.image, c.image, c.image];
+  const gallery = [c.image, c.image, c.image, c.image, c.image];
   const features = p.features.slice(0, 6);
-  const scrollGallery = (dir: 1 | -1) => setActiveImg((i) => (i + dir + gallery.length) % gallery.length);
 
   return (
     <div>
@@ -100,14 +77,36 @@ function ProductPage() {
         </div>
       </div>
 
-      {/* SECTION 1 — Hero */}
+      {/* SECTION 1 — Hero with Amazon-style gallery */}
       <Section className="!py-14 md:!py-20">
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 items-center">
-          <div className="relative overflow-hidden rounded-[22px] border border-brand-border bg-brand-soft shadow-sm">
-            <img src={c.image} alt={p.imageAlt} loading="eager" className="aspect-[4/3] w-full object-cover" />
-            <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-navy backdrop-blur">
-              Made in UAE
-            </span>
+        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 items-start">
+          <div>
+            <div className="relative overflow-hidden rounded-[22px] border border-brand-border bg-brand-soft shadow-sm">
+              <img
+                src={gallery[activeImg]}
+                alt={p.imageAlt}
+                loading="eager"
+                className="aspect-[4/3] w-full object-cover transition-opacity duration-300"
+              />
+              <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-navy backdrop-blur">
+                Made in Dubai
+              </span>
+            </div>
+            {/* Thumbnails — desktop grid, mobile swipe */}
+            <div className="mt-4 flex gap-3 overflow-x-auto pb-1 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+              {gallery.map((src, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveImg(i)}
+                  aria-label={`View image ${i + 1}`}
+                  className={`relative shrink-0 snap-start overflow-hidden rounded-[12px] border-2 transition ${
+                    activeImg === i ? "border-brand-navy" : "border-brand-border hover:border-brand-navy/40"
+                  }`}
+                >
+                  <img src={src} alt="" loading="lazy" className="h-20 w-24 object-cover sm:h-24 sm:w-28" />
+                </button>
+              ))}
+            </div>
           </div>
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-brand-gold">{c.title}</p>
@@ -158,63 +157,8 @@ function ProductPage() {
         </div>
       </Section>
 
-      {/* SECTION 4 — Applications / Industries (icons, not cards) */}
-      <Section className="bg-brand-soft !py-16 md:!py-20">
-        <SectionHeader eyebrow="Applications" title="Industries we serve" align="center" />
-        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-6 max-w-4xl mx-auto">
-          {p.industries.map((i) => {
-            const Icon = industryIcons[i] ?? Briefcase;
-            return (
-              <div key={i} className="flex flex-col items-center gap-3 text-center">
-                <div className="grid h-14 w-14 place-items-center rounded-full border border-brand-border bg-white text-brand-navy transition hover:bg-brand-navy hover:text-white hover:scale-105">
-                  <Icon className="h-6 w-6" />
-                </div>
-                <p className="text-sm font-medium text-brand-navy">{i}</p>
-              </div>
-            );
-          })}
-        </div>
-      </Section>
-
-      {/* SECTION 5 — Gallery slider */}
-      <Section className="!py-16 md:!py-20">
-        <SectionHeader eyebrow="Gallery" title="Product gallery" align="center" />
-        <div className="relative mx-auto max-w-5xl overflow-hidden rounded-[22px] border border-brand-border bg-brand-soft">
-          <img src={gallery[activeImg]} alt={p.imageAlt} loading="lazy" className="aspect-[16/9] w-full object-cover transition-opacity duration-500" />
-          <button onClick={() => scrollGallery(-1)} aria-label="Previous image" className="absolute left-4 top-1/2 -translate-y-1/2 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-brand-navy shadow transition hover:scale-110">
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button onClick={() => scrollGallery(1)} aria-label="Next image" className="absolute right-4 top-1/2 -translate-y-1/2 grid h-11 w-11 place-items-center rounded-full bg-white/90 text-brand-navy shadow transition hover:scale-110">
-            <ChevronRight className="h-5 w-5" />
-          </button>
-          <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
-            {gallery.map((_, i) => (
-              <button key={i} onClick={() => setActiveImg(i)} aria-label={`Image ${i + 1}`}
-                className={`h-1.5 rounded-full transition-all ${activeImg === i ? "w-8 bg-white" : "w-4 bg-white/50 hover:bg-white/80"}`} />
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      {/* SECTION 6 — Specifications (compact table) */}
-      <Section className="bg-brand-soft !py-16 md:!py-20">
-        <SectionHeader eyebrow="Specifications" title="Technical specifications" align="center" />
-        <div className="mx-auto max-w-3xl overflow-hidden rounded-[18px] border border-brand-border bg-white">
-          <table className="w-full text-sm">
-            <tbody>
-              {p.specs.map((s, i) => (
-                <tr key={s.label} className={i % 2 === 0 ? "bg-white" : "bg-brand-soft/60"}>
-                  <th scope="row" className="w-1/3 px-6 py-4 text-left text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-gold align-top">{s.label}</th>
-                  <td className="px-6 py-4 text-brand-navy font-medium">{s.value}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Section>
-
       {/* FAQ */}
-      <Section className="!py-16 md:!py-20">
+      <Section className="bg-brand-soft !py-16 md:!py-20">
         <SectionHeader eyebrow="FAQ" title="Frequently asked questions" align="center" />
         <div className="mx-auto max-w-3xl"><FAQ items={p.faqs} /></div>
       </Section>
@@ -237,14 +181,14 @@ function ProductPage() {
               </div>
             </div>
             <div className="space-y-3 text-sm">
-              <a href={`tel:${SITE.phone}`} className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 transition hover:bg-white/10">
+              <a href={`tel:${SITE.phoneIntl}`} className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 transition hover:bg-white/10">
                 <Phone className="h-4 w-4 text-brand-gold" /> <span>{SITE.phone}</span>
               </a>
               <a href={`mailto:${SITE.email}`} className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3 transition hover:bg-white/10">
                 <Mail className="h-4 w-4 text-brand-gold" /> <span>{SITE.email}</span>
               </a>
               <div className="flex items-center gap-3 rounded-xl border border-white/15 bg-white/5 px-4 py-3">
-                <ShieldCheck className="h-4 w-4 text-brand-gold" /> <span>Custom UAE manufacturing</span>
+                <ShieldCheck className="h-4 w-4 text-brand-gold" /> <span>Manufactured in Dubai, UAE</span>
               </div>
             </div>
           </div>
