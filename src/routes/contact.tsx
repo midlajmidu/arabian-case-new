@@ -74,7 +74,7 @@ function ContactPage() {
             <div className="rounded-[18px] border border-brand-border bg-white p-6">
               <Phone className="h-5 w-5 text-brand-gold" />
               <p className="mt-3 font-display text-lg text-brand-navy">Call</p>
-              <a href={`tel:${SITE.phone}`} className="mt-1 text-sm text-brand-text-secondary hover:text-brand-navy">{SITE.phone}</a>
+              <a href={`tel:${SITE.phoneIntl}`} className="mt-1 text-sm text-brand-text-secondary hover:text-brand-navy">{SITE.phone}</a>
             </div>
             <div className="rounded-[18px] border border-brand-border bg-white p-6">
               <Mail className="h-5 w-5 text-brand-gold" />
@@ -87,8 +87,8 @@ function ContactPage() {
 
         <div className="mt-12 overflow-hidden rounded-[18px] border border-brand-border">
           <iframe
-            title="Dubai map"
-            src="https://www.google.com/maps?q=Dubai+Industrial+Area&output=embed"
+            title="Arabian Cases Dubai"
+            src="https://www.google.com/maps?q=26th+A+Street+Umm+Ramool+Dubai&output=embed"
             className="h-[360px] w-full"
             loading="lazy"
           />

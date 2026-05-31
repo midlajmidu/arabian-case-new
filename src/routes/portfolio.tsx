@@ -30,8 +30,8 @@ function PortfolioPage() {
       <div className="bg-brand-navy text-white">
         <div className="container-page py-20 md:py-24">
           <Breadcrumbs items={[{ label: "Home", to: "/" }, { label: "Portfolio" }]} />
-          <h1 className="mt-6 font-display text-4xl md:text-6xl">Selected <span className="italic">projects</span></h1>
-          <p className="mt-4 max-w-2xl text-white/80 text-lg">A snapshot of recent builds across cases, crates, exhibitions and furniture.</p>
+          <h1 className="mt-6 font-display text-4xl md:text-6xl">Manufacturing <span className="italic">portfolio</span></h1>
+          <p className="mt-4 max-w-2xl text-white/80 text-lg">A snapshot of recent builds — cases, covers, packaging and furniture.</p>
         </div>
       </div>
 
@@ -52,13 +52,8 @@ function PortfolioPage() {
         </div>
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map(({ c, p }, i) => (
-            <div key={`${c.slug}-${p.slug}`} className={cn("group relative overflow-hidden rounded-[18px]", i % 5 === 0 ? "sm:row-span-2 aspect-[3/4]" : "aspect-[4/3]")}>
+            <div key={`${c.slug}-${p.slug}`} className={cn("group relative overflow-hidden rounded-[18px] border border-brand-border bg-brand-soft", i % 5 === 0 ? "sm:row-span-2 aspect-[3/4]" : "aspect-[4/3]")}>
               <img src={c.image} alt={p.imageAlt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/85 via-brand-navy/20 to-transparent" />
-              <div className="absolute bottom-5 left-5 right-5 text-white">
-                <p className="text-[10px] uppercase tracking-[0.28em] text-brand-gold">{c.title}</p>
-                <p className="mt-1 font-display text-xl">{p.title}</p>
-              </div>
             </div>
           ))}
         </div>
