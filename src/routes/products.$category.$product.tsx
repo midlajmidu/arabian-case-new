@@ -25,8 +25,8 @@ export const Route = createFileRoute("/products/$category/$product")({
   head: ({ loaderData, params }) => {
     if (!loaderData) return {};
     const { category: c, product: p } = loaderData;
-    const imgSet = getProductImages(c.slug, p.slug);
-    const mainImg = imgSet.card?.large || c.image;
+    const imgSet = getProductImages(p.title);
+    const mainImg = imgSet.mainImage?.large || c.image;
     return {
       meta: [
         { title: `${p.title} — ${c.title} UAE | Arabian Cases & Furniture` },
@@ -67,9 +67,9 @@ function ProductPage() {
   const [activeImg, setActiveImg] = useState(0);
   const [touchStartX, setTouchStartX] = useState<number | null>(null);
 
-  const imgSet = getProductImages(c.slug, p.slug);
-  const gallery = imgSet.gallery.length > 0
-    ? imgSet.gallery
+  const imgSet = getProductImages(p.title);
+  const gallery = imgSet.mainImage
+    ? [imgSet.mainImage, ...imgSet.galleryImages]
     : [{ large: c.image, thumb: c.image, type: "project" as const }];
 
   const features = p.features.slice(0, 6);
@@ -133,30 +133,32 @@ function ProductPage() {
               </span>
             </div>
             {/* Thumbnails — desktop grid, mobile swipe */}
-            <div className="mt-4 flex gap-3 overflow-x-auto pb-1 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {gallery.map((item, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveImg(i)}
-                  aria-label={`View image ${i + 1}`}
-                  className={cn(
-                    "relative shrink-0 snap-start overflow-hidden rounded-[12px] border-2 transition flex items-center justify-center",
-                    activeImg === i ? "border-brand-navy" : "border-brand-border hover:border-brand-navy/40",
-                    item.type === "product" ? "bg-white h-20 w-24 p-2 sm:h-24 sm:w-28" : "bg-brand-soft h-20 w-24 sm:h-24 sm:w-28"
-                  )}
-                >
-                  <img
-                    src={item.thumb}
-                    alt=""
-                    loading="lazy"
+            {gallery.length > 1 && (
+              <div className="mt-4 flex gap-3 overflow-x-auto pb-1 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                {gallery.map((item, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActiveImg(i)}
+                    aria-label={`View image ${i + 1}`}
                     className={cn(
-                      "h-full w-full",
-                      item.type === "product" ? "object-contain" : "object-cover"
+                      "relative shrink-0 snap-start overflow-hidden rounded-[12px] border-2 transition flex items-center justify-center",
+                      activeImg === i ? "border-brand-navy" : "border-brand-border hover:border-brand-navy/40",
+                      item.type === "product" ? "bg-white h-20 w-24 p-2 sm:h-24 sm:w-28" : "bg-brand-soft h-20 w-24 sm:h-24 sm:w-28"
                     )}
-                  />
-                </button>
-              ))}
-            </div>
+                  >
+                    <img
+                      src={item.thumb}
+                      alt=""
+                      loading="lazy"
+                      className={cn(
+                        "h-full w-full",
+                        item.type === "product" ? "object-contain" : "object-cover"
+                      )}
+                    />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-brand-gold">{c.title}</p>

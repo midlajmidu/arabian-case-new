@@ -72,8 +72,8 @@ function CategoryPage() {
         <SectionHeader eyebrow="Range" title={`${c.title} we manufacture`} />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {c.products.map((p) => {
-            const imgSet = getProductImages(c.slug, p.slug);
-            const image = imgSet.card;
+            const imgSet = getProductImages(p.title);
+            const image = imgSet.mainImage;
             const hasProductImage = image && image.type === "product";
 
             return (

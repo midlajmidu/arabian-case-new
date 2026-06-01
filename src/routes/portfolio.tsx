@@ -5,6 +5,7 @@ import { Breadcrumbs, breadcrumbJsonLd } from "@/components/site/Breadcrumbs";
 import { useState, useCallback, useEffect, useRef } from "react";
 import { cn } from "@/lib/utils";
 import portfolioItems from "@/data/portfolio-items.json";
+import { getTodayPortfolioItems } from "@/data/product-images";
 
 /* ── Types ─────────────────────────────────────────────────────────── */
 interface PortfolioItem {
@@ -14,9 +15,27 @@ interface PortfolioItem {
   large: string;
   thumb: string;
   type: "product" | "project";
+  title?: string;
 }
 
-const items = portfolioItems as PortfolioItem[];
+const getMergedPortfolioItems = (): PortfolioItem[] => {
+  const jsonItems = portfolioItems as PortfolioItem[];
+  const todayItems = getTodayPortfolioItems();
+  
+  const seenIds = new Set<string>();
+  const merged: PortfolioItem[] = [];
+  
+  for (const item of [...todayItems, ...jsonItems]) {
+    if (!seenIds.has(item.id)) {
+      seenIds.add(item.id);
+      merged.push(item);
+    }
+  }
+  
+  return merged;
+};
+
+const items = getMergedPortfolioItems();
 
 /* ── Derive unique categories (in the order they first appear) ───── */
 const categoryOrder = [
@@ -173,7 +192,7 @@ function Lightbox({
           <div className="flex items-center justify-center rounded-2xl bg-white p-6 md:p-10 shadow-2xl">
             <img
               src={current.large}
-              alt=""
+              alt={current.title || "Custom Case Product"}
               className="max-h-[75vh] max-w-[80vw] object-contain"
               style={{ filter: "drop-shadow(0 12px 24px rgba(0,0,0,0.10))" }}
             />
@@ -181,7 +200,7 @@ function Lightbox({
         ) : (
           <img
             src={current.large}
-            alt=""
+            alt={current.title || "Custom Manufacturing Project"}
             className="max-h-[85vh] max-w-[90vw] rounded-xl object-contain shadow-2xl"
           />
         )}
@@ -267,7 +286,7 @@ function PortfolioPage() {
                   <div className="flex aspect-square items-center justify-center">
                     <img
                       src={item.thumb}
-                      alt=""
+                      alt={item.title || "Custom Case Product"}
                       loading="lazy"
                       className="max-h-full max-w-full object-contain transition-transform duration-500 group-hover:scale-105"
                       style={{
@@ -281,7 +300,7 @@ function PortfolioPage() {
                   <div className="relative overflow-hidden rounded-[12px]">
                     <img
                       src={item.thumb}
-                      alt=""
+                      alt={item.title || "Custom Manufacturing Project"}
                       loading="lazy"
                       className="w-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />

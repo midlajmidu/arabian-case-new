@@ -12,4 +12,13 @@ export default defineConfig({
   tanstackStart: {
     server: { entry: "server" },
   },
+  vite: {
+    server: {
+      allowedHosts: true, // Forces standard dev server to bypass host checks
+      host: '0.0.0.0'
+    },
+    preview: {
+      allowedHosts: true  // Forces TanStack Start preview engine to bypass host checks
+    }
+  }
 });

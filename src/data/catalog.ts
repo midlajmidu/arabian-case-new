@@ -142,7 +142,7 @@ export const categories: Category[] = [
       mkProduct(
         "audio-equipment-cases",
         "Audio Equipment Cases",
-        "Combined mixer & speaker cases for PA, consoles and line array systems",
+        "Custom flight cases for mixers, speakers, keyboards, PA consoles, audio racks and line array systems.",
         "Custom-fit flight cases for audio mixers, PA speakers, line arrays and monitors — doghouse mixer lids, foam padding, recessed handles and reinforced corners for safe transport.",
         ["Mixer doghouse lids", "Speaker-specific fit", "Foam padding", "Recessed handles", "Stackable corners", "Optional wheels"],
         ["FOH mixing", "Concert touring", "Studio transport", "Event rental"],
