@@ -13,6 +13,8 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { SITE } from "@/lib/site";
+import { getProductImages } from "@/data/product-images";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/products/$category/$product")({
   loader: ({ params }) => {
@@ -23,6 +25,8 @@ export const Route = createFileRoute("/products/$category/$product")({
   head: ({ loaderData, params }) => {
     if (!loaderData) return {};
     const { category: c, product: p } = loaderData;
+    const imgSet = getProductImages(c.slug, p.slug);
+    const mainImg = imgSet.card?.large || c.image;
     return {
       meta: [
         { title: `${p.title} — ${c.title} UAE | Arabian Cases & Furniture` },
@@ -30,7 +34,7 @@ export const Route = createFileRoute("/products/$category/$product")({
         { name: "keywords", content: `${p.title} UAE, ${p.title} Dubai, custom ${p.title.toLowerCase()}, ${c.imageName}` },
         { property: "og:title", content: `${p.title} — ${c.title}` },
         { property: "og:description", content: p.description },
-        { property: "og:image", content: c.image },
+        { property: "og:image", content: mainImg },
         { property: "og:type", content: "product" },
         { property: "og:url", content: `/products/${params.category}/${params.product}` },
       ],
@@ -45,7 +49,7 @@ export const Route = createFileRoute("/products/$category/$product")({
         { type: "application/ld+json", children: JSON.stringify(faqJsonLd(p.faqs)) },
         { type: "application/ld+json", children: JSON.stringify({
           "@context": "https://schema.org", "@type": "Product",
-          name: p.title, description: p.description, image: c.image,
+          name: p.title, description: p.description, image: mainImg,
           brand: { "@type": "Brand", name: "Arabian Cases & Furniture" },
           category: c.title,
           offers: { "@type": "Offer", availability: "https://schema.org/InStock", areaServed: "AE", priceCurrency: "AED" },
@@ -61,8 +65,33 @@ export const Route = createFileRoute("/products/$category/$product")({
 function ProductPage() {
   const { category: c, product: p } = Route.useLoaderData() as { category: Category; product: Product };
   const [activeImg, setActiveImg] = useState(0);
-  const gallery = [c.image, c.image, c.image, c.image, c.image];
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
+
+  const imgSet = getProductImages(c.slug, p.slug);
+  const gallery = imgSet.gallery.length > 0
+    ? imgSet.gallery
+    : [{ large: c.image, thumb: c.image, type: "project" as const }];
+
   const features = p.features.slice(0, 6);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchStartX(e.touches[0].clientX);
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX === null) return;
+    const diff = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) {
+        // Swipe right (prev image)
+        setActiveImg((prev) => (prev === 0 ? gallery.length - 1 : prev - 1));
+      } else {
+        // Swipe left (next image)
+        setActiveImg((prev) => (prev === gallery.length - 1 ? 0 : prev + 1));
+      }
+    }
+    setTouchStartX(null);
+  };
 
   return (
     <div>
@@ -81,12 +110,23 @@ function ProductPage() {
       <Section className="!py-14 md:!py-20">
         <div className="grid gap-10 lg:grid-cols-2 lg:gap-14 items-start">
           <div>
-            <div className="relative overflow-hidden rounded-[22px] border border-brand-border bg-brand-soft shadow-sm">
+            <div
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              className={cn(
+                "relative overflow-hidden rounded-[22px] border border-brand-border shadow-sm flex items-center justify-center transition-colors select-none",
+                gallery[activeImg]?.type === "product" ? "bg-white p-6 md:p-8" : "bg-brand-soft"
+              )}
+            >
               <img
-                src={gallery[activeImg]}
+                src={gallery[activeImg]?.large}
                 alt={p.imageAlt}
                 loading="eager"
-                className="aspect-[4/3] w-full object-cover transition-opacity duration-300"
+                className={cn(
+                  "aspect-[4/3] w-full transition-opacity duration-300",
+                  gallery[activeImg]?.type === "product" ? "object-contain" : "object-cover"
+                )}
+                style={gallery[activeImg]?.type === "product" ? { filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.08))" } : undefined}
               />
               <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-navy backdrop-blur">
                 Made in Dubai
@@ -94,16 +134,26 @@ function ProductPage() {
             </div>
             {/* Thumbnails — desktop grid, mobile swipe */}
             <div className="mt-4 flex gap-3 overflow-x-auto pb-1 snap-x snap-mandatory [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-              {gallery.map((src, i) => (
+              {gallery.map((item, i) => (
                 <button
                   key={i}
                   onClick={() => setActiveImg(i)}
                   aria-label={`View image ${i + 1}`}
-                  className={`relative shrink-0 snap-start overflow-hidden rounded-[12px] border-2 transition ${
-                    activeImg === i ? "border-brand-navy" : "border-brand-border hover:border-brand-navy/40"
-                  }`}
+                  className={cn(
+                    "relative shrink-0 snap-start overflow-hidden rounded-[12px] border-2 transition flex items-center justify-center",
+                    activeImg === i ? "border-brand-navy" : "border-brand-border hover:border-brand-navy/40",
+                    item.type === "product" ? "bg-white h-20 w-24 p-2 sm:h-24 sm:w-28" : "bg-brand-soft h-20 w-24 sm:h-24 sm:w-28"
+                  )}
                 >
-                  <img src={src} alt="" loading="lazy" className="h-20 w-24 object-cover sm:h-24 sm:w-28" />
+                  <img
+                    src={item.thumb}
+                    alt=""
+                    loading="lazy"
+                    className={cn(
+                      "h-full w-full",
+                      item.type === "product" ? "object-contain" : "object-cover"
+                    )}
+                  />
                 </button>
               ))}
             </div>
@@ -151,8 +201,20 @@ function ProductPage() {
               </p>
             </div>
           </div>
-          <div className="overflow-hidden rounded-[22px] border border-brand-border">
-            <img src={c.image} alt={p.imageAlt} loading="lazy" className="aspect-[4/3] w-full object-cover transition duration-700 hover:scale-[1.03]" />
+          <div className={cn(
+            "overflow-hidden rounded-[22px] border border-brand-border flex items-center justify-center transition-colors",
+            gallery[0]?.type === "product" ? "bg-white p-6 md:p-8" : "bg-brand-soft"
+          )}>
+            <img
+              src={gallery[0]?.large || c.image}
+              alt={p.imageAlt}
+              loading="lazy"
+              className={cn(
+                "aspect-[4/3] w-full transition duration-700 hover:scale-[1.03]",
+                gallery[0]?.type === "product" ? "object-contain" : "object-cover"
+              )}
+              style={gallery[0]?.type === "product" ? { filter: "drop-shadow(0 10px 20px rgba(0,0,0,0.08))" } : undefined}
+            />
           </div>
         </div>
       </Section>

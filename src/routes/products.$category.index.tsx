@@ -5,6 +5,8 @@ import { FAQ, faqJsonLd } from "@/components/site/FAQ";
 import { CTABanner } from "@/components/site/CTABanner";
 import { categories, getCategory, type Category } from "@/data/catalog";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
+import { getProductImages } from "@/data/product-images";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/products/$category/")({
   loader: ({ params }) => {
@@ -69,23 +71,43 @@ function CategoryPage() {
       <Section>
         <SectionHeader eyebrow="Range" title={`${c.title} we manufacture`} />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {c.products.map((p) => (
-            <Link
-              key={p.slug}
-              to="/products/$category/$product"
-              params={{ category: c.slug, product: p.slug }}
-              className="group overflow-hidden rounded-[18px] border border-brand-border bg-white transition hover:-translate-y-1 hover:shadow-lg"
-            >
-              <div className="aspect-[4/3] overflow-hidden bg-brand-soft">
-                <img src={c.image} alt={p.imageAlt} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
-              </div>
-              <div className="p-6">
-                <h3 className="font-display text-xl text-brand-navy">{p.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-brand-text-secondary">{p.tagline}</p>
-                <p className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-navy">View details <ArrowRight className="h-3.5 w-3.5" /></p>
-              </div>
-            </Link>
-          ))}
+          {c.products.map((p) => {
+            const imgSet = getProductImages(c.slug, p.slug);
+            const image = imgSet.card;
+            const hasProductImage = image && image.type === "product";
+
+            return (
+              <Link
+                key={p.slug}
+                to="/products/$category/$product"
+                params={{ category: c.slug, product: p.slug }}
+                className="group flex flex-col h-full overflow-hidden rounded-[18px] border border-brand-border bg-white transition hover:-translate-y-1 hover:shadow-lg"
+              >
+                <div className={cn(
+                  "aspect-[4/3] overflow-hidden flex items-center justify-center transition-colors",
+                  hasProductImage ? "bg-white p-6" : "bg-brand-soft"
+                )}>
+                  <img
+                    src={image ? image.thumb : c.image}
+                    alt={p.imageAlt}
+                    loading="lazy"
+                    className={cn(
+                      "transition-transform duration-700 group-hover:scale-105",
+                      hasProductImage ? "max-h-full max-w-full object-contain" : "h-full w-full object-cover"
+                    )}
+                    style={hasProductImage ? { filter: "drop-shadow(0 10px 15px rgba(0,0,0,0.08))" } : undefined}
+                  />
+                </div>
+                <div className="p-6 flex flex-col flex-grow">
+                  <h3 className="font-display text-xl text-brand-navy">{p.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-brand-text-secondary flex-grow">{p.tagline}</p>
+                  <p className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-brand-navy mt-auto">
+                    View details <ArrowRight className="h-3.5 w-3.5" />
+                  </p>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </Section>
 
