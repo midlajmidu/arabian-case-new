@@ -36,3 +36,5 @@ dist-ssr
 *.temp
 Website picture 2/
 output_images/
+.vercel
+.env*
