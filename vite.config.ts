@@ -26,11 +26,6 @@ export default defineConfig(async (env) => {
     internalPlugins.push(
       nitro({
         preset: "vercel",
-        output: {
-          dir: "dist",
-          serverDir: "dist/server",
-          publicDir: "dist/client",
-        },
       })
     )
   }
