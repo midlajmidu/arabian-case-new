@@ -1,9 +1,9 @@
-import flightCasesImg from "@/assets/hero-flight-cases.jpg";
-import foamImg from "@/assets/hero-foam-inserts.jpg";
-import cratesImg from "@/assets/hero-shipping-crates.jpg";
-import bagsImg from "@/assets/hero-custom-bags.jpg";
-import exhibitionImg from "@/assets/hero-exhibition.jpg";
-import furnitureImg from "@/assets/hero-furniture-premium.jpg";
+import flightCasesImg from "@/assets/hero-flight-cases.webp";
+import foamImg from "@/assets/hero-foam-inserts.webp";
+import cratesImg from "@/assets/hero-shipping-crates.webp";
+import bagsImg from "@/assets/hero-custom-bags.webp";
+import exhibitionImg from "@/assets/hero-exhibition.webp";
+import furnitureImg from "@/assets/hero-furniture-premium.webp";
 
 export interface Product {
   slug: string;

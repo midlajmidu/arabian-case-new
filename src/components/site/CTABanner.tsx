@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Phone } from "lucide-react";
 import { WhatsAppButton } from "./WhatsAppButton";
-import heroFlight from "@/assets/hero-flight-cases.jpg";
+import heroFlight from "@/assets/hero-flight-cases.webp";
 
 export function CTABanner({
   title = "Need a Custom Manufacturing Quote?",

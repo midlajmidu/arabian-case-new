@@ -4,7 +4,7 @@ import { CTABanner } from "@/components/site/CTABanner";
 import { Breadcrumbs, breadcrumbJsonLd } from "@/components/site/Breadcrumbs";
 import { SITE } from "@/lib/site";
 import { CheckCircle2, Package, Layers, Sofa, Shield, Boxes, Wrench } from "lucide-react";
-import heroImg from "@/assets/hero-furniture-premium.jpg";
+import heroImg from "@/assets/hero-furniture-premium.webp";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
