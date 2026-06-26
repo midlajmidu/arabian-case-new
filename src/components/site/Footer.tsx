@@ -21,7 +21,7 @@ export function Footer() {
           <h3 className="font-display text-base mb-4">Company</h3>
           <ul className="space-y-2 text-sm">
             <li><Link to="/about" className="text-white/70 hover:text-white">About Us</Link></li>
-            <li><Link to="/portfolio" className="text-white/70 hover:text-white">Portfolio</Link></li>
+            {/* <li><Link to="/portfolio" className="text-white/70 hover:text-white">Portfolio</Link></li> */}
             <li><Link to="/contact" className="text-white/70 hover:text-white">Contact</Link></li>
           </ul>
         </div>

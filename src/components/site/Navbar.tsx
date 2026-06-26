@@ -6,7 +6,7 @@ import logo from "@/assets/logo.webp";
 const nav = [
   { to: "/", label: "Home" },
   { to: "/products", label: "Products" },
-  { to: "/portfolio", label: "Portfolio" },
+  // { to: "/portfolio", label: "Portfolio" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];

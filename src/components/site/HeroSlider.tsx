@@ -166,7 +166,7 @@ export function HeroSlider() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-brand-gold">
                   {s.category}
                 </p>
-                <h2 className="mt-3 font-display text-2xl md:text-3xl leading-tight">{s.title}</h2>
+                <h2 className="mt-3 font-display text-slate-50 text-2xl md:text-3xl leading-tight">{s.title}</h2>
                 <p className="mt-3 text-sm text-white/80 leading-relaxed max-w-md">{s.description}</p>
                 <Link
                   to={s.href.to as never}
