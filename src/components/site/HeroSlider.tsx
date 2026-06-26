@@ -99,7 +99,7 @@ export function HeroSlider() {
           className="absolute inset-0 h-full w-full object-cover opacity-[0.9] transition-opacity duration-1000"
         >
           <source
-            src="https://player.vimeo.com/external/500063987.hd.mp4?s=8d5eb87722970e0b531ea0bec57b833c5e27e14c&profile_id=175"
+            src="/hero-video.mp4"
             type="video/mp4"
           />
         </video>
