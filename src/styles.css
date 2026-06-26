@@ -75,7 +75,7 @@
   --brand-border: oklch(0.93 0.003 247);
   --brand-text-secondary: oklch(0.55 0.02 250);
   --brand-success: oklch(0.55 0.15 145);
-  --font-display: "DM Serif Display", serif;
+  --font-display: "Plus Jakarta Sans", system-ui, sans-serif;
   --font-sans: "Plus Jakarta Sans", system-ui, sans-serif;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.129 0.042 264.695);

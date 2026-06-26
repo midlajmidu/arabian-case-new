@@ -105,7 +105,7 @@ export function OurProcess() {
         <div id="process-trigger-5" className="absolute top-[350vh] h-[130vh] w-full pointer-events-none" />
 
         {/* Sticky viewport content */}
-        <div className="sticky top-[90px] h-[calc(100vh-90px)] w-full flex flex-col justify-between overflow-hidden py-8">
+        <div className="sticky top-[90px] h-[calc(100vh-90px)] w-full flex flex-col justify-between overflow-hidden py-4 md:py-8">
           {/* Immersive background cross-fade (Active on both Desktop and Mobile) */}
           {processSteps.map((step, idx) => (
             <img
@@ -124,9 +124,9 @@ export function OurProcess() {
 
           {/* Full Process Header: Slide to top & fade out when activeStep > 0 */}
           <div className={cn(
-            "absolute top-6 left-0 right-0 text-center px-6 z-20 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] transform",
-            activeStep === 0 
-              ? "translate-y-0 opacity-100 pointer-events-auto" 
+            "absolute top-8 md:top-12 lg:top-16 left-0 right-0 text-center px-6 z-20 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] transform",
+            activeStep === 0
+              ? "translate-y-0 opacity-100 pointer-events-auto"
               : "-translate-y-full opacity-0 pointer-events-none"
           )}>
             <span className="text-brand-gold text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.28em] block mb-1.5">
@@ -135,15 +135,15 @@ export function OurProcess() {
             <h2 className="font-display text-2xl sm:text-3xl lg:text-[42px] leading-tight text-white mb-2 tracking-tight">
               From Brief to Delivery
             </h2>
-            <p className="font-sans text-xs sm:text-sm md:text-base text-white/70 max-w-xl mx-auto leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm md:text-base text-white/70 max-w-xl mx-auto leading-relaxed mb-6 sm:mb-8">
               A streamlined manufacturing process — from your brief to finished, on-time delivery.
             </p>
           </div>
 
           {/* Main Layout Container: Shifts down when activeStep === 0 to give space to the header */}
           <div className={cn(
-            "relative z-10 flex-1 w-full max-w-[1500px] mx-auto px-8 flex items-center overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]",
-            activeStep === 0 ? "pt-24 lg:pt-32" : "pt-0"
+            "relative z-10 flex-1 w-full max-w-[1280px] mx-auto px-6 flex items-center overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]",
+            activeStep === 0 ? "pt-48 md:pt-56 lg:pt-64" : "pt-0"
           )}>
 
             {/* ========================================================================= */}
@@ -175,10 +175,10 @@ export function OurProcess() {
               </div>
 
               {/* Right Column: Visual Showcase Card */}
-              <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-2xl h-[550px] flex flex-col justify-between">
-                
+              <div className="relative overflow-hidden rounded-[4px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-2xl h-[550px] flex flex-col justify-between">
+
                 {/* Card Ambient Background Image Cross-fade (Flora AI style) */}
-                <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden rounded-[24px]">
+                <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden rounded-[4px]">
                   {processSteps.map((step, idx) => (
                     <img
                       key={`card-bg-img-${step.num}`}
@@ -195,7 +195,7 @@ export function OurProcess() {
                 </div>
 
                 {/* Top: Showcase Image wrapper (wrapped in relative z-10) */}
-                <div className="relative z-10 aspect-[16/10] w-full overflow-hidden rounded-[16px] bg-brand-navy/30 shadow-inner">
+                <div className="relative z-10 aspect-[16/10] w-full overflow-hidden rounded-[4px] bg-brand-navy/30 shadow-inner">
                   {processSteps.map((step, idx) => (
                     <img
                       key={`card-img-${step.num}`}
@@ -238,7 +238,7 @@ export function OurProcess() {
             {/* ========================================================================= */}
             {/* Mobile & Tablet Layout (lg:hidden) */}
             {/* ========================================================================= */}
-            <div className="lg:hidden w-full h-full flex flex-col justify-between py-4 max-w-lg mx-auto">
+            <div className="lg:hidden w-full h-full flex flex-col justify-between py-4 max-w-[640px] mx-auto">
 
               {/* Active Card container - Cross-fading the active step */}
               <div className="relative flex-1 flex items-center justify-center min-h-[360px] xs:min-h-[400px]">
@@ -247,15 +247,15 @@ export function OurProcess() {
                     key={`mobile-card-${step.num}`}
                     className={cn(
                       "absolute w-full transition-all duration-700 ease-in-out flex flex-col gap-4",
-                      idx === activeStep 
-                        ? "opacity-100 scale-100 translate-y-0 pointer-events-auto" 
+                      idx === activeStep
+                        ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
                         : "opacity-0 scale-95 translate-y-4 pointer-events-none"
                     )}
                   >
-                    <div className="relative overflow-hidden rounded-[24px] border border-white/10 bg-white/5 backdrop-blur-xl p-5 xs:p-6 shadow-2xl">
-                      
+                    <div className="relative overflow-hidden rounded-[4px] border border-white/10 bg-white/5 backdrop-blur-xl p-5 xs:p-6 shadow-2xl">
+
                       {/* Card Ambient Background Image */}
-                      <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden rounded-[24px]">
+                      <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden rounded-[4px]">
                         <img
                           src={step.image}
                           alt=""
@@ -276,11 +276,11 @@ export function OurProcess() {
                         </div>
 
                         {/* Middle showcase image */}
-                        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[16px] bg-black/40 border border-white/5 shadow-inner">
-                          <img 
-                            src={step.image} 
-                            alt={step.title} 
-                            className="h-full w-full object-cover" 
+                        <div className="relative aspect-[16/10] w-full overflow-hidden rounded-[4px] bg-black/40 border border-white/5 shadow-inner">
+                          <img
+                            src={step.image}
+                            alt={step.title}
+                            className="h-full w-full object-cover"
                           />
                         </div>
 

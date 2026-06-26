@@ -54,7 +54,7 @@ export function CategoryCard({
       to="/products/$category"
       params={{ category: slug }}
       className={cn(
-        "group relative overflow-hidden rounded-[24px] border border-brand-border bg-white p-5 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col justify-between h-full transform",
+        "group relative overflow-hidden rounded-[4px] border border-brand-border bg-white p-5 transition-all duration-700 ease-[cubic-bezier(0.25,1,0.5,1)] flex flex-col justify-between h-full transform",
         isVisible 
           ? "opacity-100 translate-y-0 shadow-sm hover:-translate-y-2 hover:shadow-xl" 
           : "opacity-0 translate-y-12 pointer-events-none"
@@ -62,7 +62,7 @@ export function CategoryCard({
     >
       <div className="flex flex-col">
         {/* Visual Image Showcase Container */}
-        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-[16px] bg-brand-soft">
+        <div className="relative w-full aspect-[16/10] overflow-hidden rounded-[4px] bg-brand-soft">
           <img
             src={image}
             alt={alt}
@@ -92,7 +92,7 @@ export function CategoryCard({
 
       {/* Interactive Bottom Button */}
       <div className="mt-8">
-        <div className="w-full py-3 rounded-[12px] bg-brand-navy text-white font-semibold text-center text-sm transition-all duration-300 group-hover:bg-brand-gold group-hover:text-brand-navy shadow-sm">
+        <div className="w-full py-3 rounded-[4px] bg-brand-navy text-white font-semibold text-center text-sm transition-all duration-300 group-hover:bg-brand-gold group-hover:text-brand-navy shadow-sm">
           Read more
         </div>
       </div>
