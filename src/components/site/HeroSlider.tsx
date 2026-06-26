@@ -88,8 +88,26 @@ export function HeroSlider() {
   const s = slides[active];
 
   return (
-    <section className="relative overflow-hidden bg-white">
-      <div className="container-page py-14 md:py-20 lg:py-24">
+    <section className="relative overflow-hidden bg-white border-b border-brand-border/40 lg:h-[700px] flex items-center">
+      {/* Premium Cinematic Background Video Loop (Industrial/Manufacturing) */}
+      <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden">
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="absolute inset-0 h-full w-full object-cover opacity-[0.9] transition-opacity duration-1000"
+        >
+          <source
+            src="https://player.vimeo.com/external/500063987.hd.mp4?s=8d5eb87722970e0b531ea0bec57b833c5e27e14c&profile_id=175"
+            type="video/mp4"
+          />
+        </video>
+        {/* Soft background blending overlays */}
+        <div className="absolute inset-0 bg-gradient-to-tr from-brand-navy/5 via-slate-500 to-brand-gold/5" />
+      </div>
+
+      <div className="relative z-10 container-page py-12 lg:py-0 w-full">
         <div className="grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
           {/* LEFT */}
           <div className="animate-fade-up">
@@ -100,7 +118,7 @@ export function HeroSlider() {
               Custom Cases, Covers & Packaging{" "}
               <span className="italic text-brand-navy/90">Built to Last</span>
             </h1>
-            <p className="mt-5 max-w-xl text-base md:text-lg text-brand-text-secondary leading-relaxed">
+            <p className="mt-5 max-w-xl text-base md:text-lg text-white leading-relaxed">
               Manufacturers of flight cases, mixer & speaker cases, utility covers, foam inserts,
               shipping crates, custom bags and bespoke furniture — built in our Dubai facility for clients across the UAE.
             </p>
@@ -109,7 +127,7 @@ export function HeroSlider() {
               {stats.map((st) => (
                 <div key={st.label}>
                   <p className="font-display text-3xl md:text-[34px] text-brand-navy leading-none">{st.value}</p>
-                  <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-brand-text-secondary leading-tight">{st.label}</p>
+                  <p className="mt-2 text-[11px] uppercase tracking-[0.18em] text-white leading-tight">{st.label}</p>
                 </div>
               ))}
             </div>
@@ -141,7 +159,7 @@ export function HeroSlider() {
 
           {/* RIGHT — slider card */}
           <div className="relative">
-            <div className="relative overflow-hidden rounded-[24px] border border-brand-border bg-brand-navy shadow-2xl shadow-brand-navy/10 aspect-[4/5] lg:aspect-[5/6]">
+            <div className="relative overflow-hidden rounded-[24px] border border-brand-border bg-brand-navy shadow-2xl shadow-brand-navy/10 h-[400px] sm:h-[460px] lg:h-[480px] w-full">
               {slides.map((slide, i) => (
                 <div
                   key={i}
@@ -158,7 +176,7 @@ export function HeroSlider() {
                     fetchPriority={i === 0 ? "high" : "auto"}
                     className="absolute inset-0 h-full w-full object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-brand-navy via-brand-navy/55 to-transparent" />
+                  <div className="absolute inset-x-0 bottom-0 h-[100%] bg-gradient-to-t from-black/70 to-transparent" />
                 </div>
               ))}
 
@@ -166,7 +184,7 @@ export function HeroSlider() {
                 <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-brand-gold">
                   {s.category}
                 </p>
-                <h2 className="mt-3 font-display text-slate-50 text-2xl md:text-3xl leading-tight">{s.title}</h2>
+                <h2 className="mt-3 font-display text-white text-2xl md:text-3xl leading-tight">{s.title}</h2>
                 <p className="mt-3 text-sm text-white/80 leading-relaxed max-w-md">{s.description}</p>
                 <Link
                   to={s.href.to as never}
