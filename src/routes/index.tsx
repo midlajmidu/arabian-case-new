@@ -1,12 +1,13 @@
+import { lazy, Suspense } from "react";
 import { createFileRoute } from "@tanstack/react-router";
-import { WhyChooseUs } from "@/components/site/WhyChooseUs";
-import { OurProcess } from "@/components/site/OurProcess";
 import { HeroSlider } from "@/components/site/HeroSlider";
-import { FeaturedProducts } from "@/components/site/FeaturedProducts";
-import { UAECoverage } from "@/components/site/UAECoverage";
-import { CTABanner } from "@/components/site/CTABanner";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { SITE } from "@/lib/site";
+
+const WhyChooseUs = lazy(() => import("@/components/site/WhyChooseUs").then(m => ({ default: m.WhyChooseUs })));
+const OurProcess = lazy(() => import("@/components/site/OurProcess").then(m => ({ default: m.OurProcess })));
+const FeaturedProducts = lazy(() => import("@/components/site/FeaturedProducts").then(m => ({ default: m.FeaturedProducts })));
+const CTABanner = lazy(() => import("@/components/site/CTABanner").then(m => ({ default: m.CTABanner })));
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -28,25 +29,23 @@ function Index() {
     <div className="bg-white">
       <HeroSlider />
 
-      <ScrollReveal>
-        <WhyChooseUs />
-      </ScrollReveal>
+      <Suspense fallback={null}>
+        <ScrollReveal>
+          <WhyChooseUs />
+        </ScrollReveal>
 
-      <ScrollReveal>
-        <OurProcess />
-      </ScrollReveal>
+        <ScrollReveal>
+          <OurProcess />
+        </ScrollReveal>
 
-      <ScrollReveal>
-        <FeaturedProducts />
-      </ScrollReveal>
+        <ScrollReveal>
+          <FeaturedProducts />
+        </ScrollReveal>
 
-      <ScrollReveal>
-        <CTABanner />
-      </ScrollReveal>
-
-      {/* <ScrollReveal>
-        <UAECoverage />
-      </ScrollReveal> */}
+        <ScrollReveal>
+          <CTABanner />
+        </ScrollReveal>
+      </Suspense>
     </div>
   );
 }
