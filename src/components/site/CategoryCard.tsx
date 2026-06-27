@@ -79,8 +79,8 @@ export function CategoryCard({
 
           {/* Decorative Divider: Dot & Line */}
           <div className="flex items-center gap-1.5 mt-3">
-            <span className="h-1.5 w-1.5 rounded-full bg-brand-navy" />
-            <span className="h-[2px] w-8 bg-brand-navy" />
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
+            <span className="h-[2px] w-8 bg-brand-gold" />
           </div>
 
           {/* Description */}
