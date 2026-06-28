@@ -6,7 +6,7 @@ import logo from "@/assets/logo.webp";
 const nav = [
   { to: "/", label: "Home" },
   { to: "/products", label: "Products" },
-  { to: "/portfolio", label: "Portfolio" },
+  // { to: "/portfolio", label: "Portfolio" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ];
@@ -26,8 +26,8 @@ export function Navbar() {
               to={item.to}
               activeOptions={{ exact: item.to === "/" }}
               activeProps={{ className: "text-brand-navy font-semibold" }}
-              inactiveProps={{ className: "text-brand-dark-gray" }}
-              className="text-sm tracking-wide transition-colors hover:text-brand-navy"
+              inactiveProps={{ className: "text-slate-600" }}
+              className="text-base tracking-wide transition-colors hover:text-brand-navy"
             >
               {item.label}
             </Link>
@@ -57,7 +57,7 @@ export function Navbar() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="py-3 text-sm text-brand-dark-gray hover:text-brand-navy"
+                className="py-1 text-xl text-slate-600 hover:text-brand-navy"
               >
                 {item.label}
               </Link>
