@@ -53,25 +53,25 @@ export function FeaturedProducts() {
             Our Manufacturing
           </h2>
         </div>
-        <div className="hidden lg:flex gap-3">
-          <button
-            onClick={() => scrollCarousel(-1)}
-            aria-label="Previous"
-            className="grid h-12 w-12 place-items-center rounded-full bg-white text-brand-navy shadow-sm border border-neutral-100 transition-all duration-300 hover:bg-brand-navy hover:text-white hover:border-brand-navy cursor-pointer"
-          >
-            <ChevronLeft className="h-5 w-5" />
-          </button>
-          <button
-            onClick={() => scrollCarousel(1)}
-            aria-label="Next"
-            className="grid h-12 w-12 place-items-center rounded-full bg-white text-brand-navy shadow-sm border border-neutral-100 transition-all duration-300 hover:bg-brand-navy hover:text-white hover:border-brand-navy cursor-pointer"
-          >
-            <ChevronRight className="h-5 w-5" />
-          </button>
-        </div>
       </div>
 
-      <div className="relative min-w-0">
+      <div className="relative min-w-0 px-4 sm:px-0">
+        {/* Floating Navigation Controls (Desktop) */}
+        <button
+          onClick={() => scrollCarousel(-1)}
+          aria-label="Previous"
+          className="absolute -left-6 top-[38%] -translate-y-1/2 z-10 hidden lg:grid h-12 w-12 place-items-center rounded-full bg-white text-brand-navy shadow-lg border border-neutral-100 transition-all duration-300 hover:bg-brand-navy hover:text-white hover:border-brand-navy cursor-pointer"
+        >
+          <ChevronLeft className="h-5 w-5" />
+        </button>
+        <button
+          onClick={() => scrollCarousel(1)}
+          aria-label="Next"
+          className="absolute -right-6 top-[38%] -translate-y-1/2 z-10 hidden lg:grid h-12 w-12 place-items-center rounded-full bg-white text-brand-navy shadow-lg border border-neutral-100 transition-all duration-300 hover:bg-brand-navy hover:text-white hover:border-brand-navy cursor-pointer"
+        >
+          <ChevronRight className="h-5 w-5" />
+        </button>
+
         <div
           ref={carouselRef}
           className="flex gap-6 overflow-x-auto pb-4 snap-x snap-mandatory scroll-smooth [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
