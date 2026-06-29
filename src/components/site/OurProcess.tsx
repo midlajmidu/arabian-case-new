@@ -129,21 +129,15 @@ export function OurProcess() {
               ? "translate-y-0 opacity-100 pointer-events-auto"
               : "-translate-y-full opacity-0 pointer-events-none"
           )}>
-            <span className="text-brand-gold text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.28em] block mb-1.5">
+            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight text-brand-gold tracking-tight">
               Our Process
-            </span>
-            <h2 className="font-display text-2xl sm:text-3xl lg:text-[42px] leading-tight text-white mb-2 tracking-tight">
-              From Brief to Delivery
             </h2>
-            <p className="font-sans text-xs sm:text-sm md:text-base text-white/70 max-w-xl mx-auto leading-relaxed mb-6 sm:mb-8">
-              A streamlined manufacturing process — from your brief to finished, on-time delivery.
-            </p>
           </div>
 
           {/* Main Layout Container: Shifts down when activeStep === 0 to give space to the header */}
           <div className={cn(
             "relative z-10 flex-1 w-full max-w-[1280px] mx-auto px-6 flex items-center overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]",
-            activeStep === 0 ? "pt-48 md:pt-56 lg:pt-64" : "pt-0"
+            activeStep === 0 ? "pt-24 md:pt-32 lg:pt-36" : "pt-0"
           )}>
 
             {/* ========================================================================= */}

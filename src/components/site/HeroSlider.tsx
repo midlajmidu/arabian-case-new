@@ -67,15 +67,9 @@ const slides: Slide[] = [
 ];
 
 const stats = [
-  { value: "150+", label: "Projects Completed" },
-  { value: "50+", label: "Corporate Clients" },
+  { value: "500+", label: "Projects Completed" },
+  { value: "150+", label: "Corporate Clients" },
   { value: "100%", label: "Custom Built" },
-];
-
-const features = [
-  { icon: Sparkles, label: "Premium Quality" },
-  { icon: ShieldCheck, label: "Custom Solutions" },
-  { icon: Truck, label: "On-Time Delivery" },
 ];
 
 export function HeroSlider() {
@@ -109,16 +103,13 @@ export function HeroSlider() {
 
           {/* LEFT — text content */}
           <div className="animate-fade-up order-1 lg:order-1">
-            <span className="inline-flex items-center rounded-full border border-brand-navy bg-brand-navy px-3 py-1 text-[10px] sm:text-[11px] font-medium uppercase tracking-[0.22em] text-white">
-              Manufactured in Dubai, UAE
-            </span>
-            <h1 className="mt-4 sm:mt-5 font-display text-white text-3xl sm:text-4xl md:text-5xl xl:text-6xl leading-tight">
-              Custom Cases, Covers &amp; Packaging{" "}
-              <span className="italic text-brand-gold">Built to Last</span>
+
+            <h1 className="mt-4 sm:mt-5 font-display text-white text-4xl sm:text-5xl md:text-6xl xl:text-7xl leading-tight tracking-tight">
+              Custom Bespoke{" "}
+              <span className="text-brand-gold">Flightcases</span>
             </h1>
-            <p className="mt-4 sm:mt-5 max-w-xl text-sm sm:text-base md:text-lg text-white/90 leading-relaxed">
-              Manufacturers of flight cases, mixer &amp; speaker cases, utility covers, foam inserts,
-              shipping crates, custom bags and bespoke furniture — built in our Dubai facility for clients across the UAE.
+            <p className="mt-7 sm:mt-8 max-w-xl text-base md:text-lg text-white/80 leading-relaxed">
+              Protect your valuable equipment with premium custom flight cases from Arabian Cases. Designed and manufactured in the UAE, our flight cases are built to withstand the toughest transportation and operating environments while ensuring maximum protection.
             </p>
 
             <div className="mt-6 sm:mt-7 grid grid-cols-3 gap-3 sm:gap-4 max-w-xs sm:max-w-md">
@@ -145,14 +136,7 @@ export function HeroSlider() {
               </Link>
             </div>
 
-            <div className="mt-6 sm:mt-8 flex flex-wrap items-center gap-x-5 sm:gap-x-7 gap-y-2 sm:gap-y-3">
-              {features.map((f) => (
-                <div key={f.label} className="flex items-center gap-2 text-xs sm:text-sm">
-                  <f.icon className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-brand-gold" />
-                  <span className="font-medium text-white">{f.label}</span>
-                </div>
-              ))}
-            </div>
+
           </div>
 
           {/* RIGHT — slider card */}

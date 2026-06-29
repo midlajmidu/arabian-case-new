@@ -163,7 +163,7 @@ function ProductPage() {
           <div>
             <p className="text-[11px] font-medium uppercase tracking-[0.28em] text-brand-gold">{c.title}</p>
             <h1 className="mt-3 font-display text-brand-navy">{p.title}</h1>
-            <p className="mt-5 text-base md:text-lg text-brand-text-secondary leading-relaxed">{p.tagline}</p>
+            <p className="mt-5 text-sm md:text-base text-brand-text-secondary leading-relaxed">{p.description}</p>
             <div className="mt-7 flex flex-wrap gap-3">
               <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-brand-navy px-6 py-3 text-sm font-semibold text-white shadow-md shadow-brand-navy/15 transition hover:bg-brand-navy-hover hover:scale-[1.02]">
                 Get Quote <ArrowRight className="h-4 w-4" />
