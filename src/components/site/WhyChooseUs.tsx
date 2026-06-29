@@ -19,7 +19,7 @@ export function WhyChooseUs() {
   }, []);
 
   return (
-    <section className="bg-white border-b border-brand-border/40">
+    <section id="why-choose-us" className="bg-white border-b border-brand-border/40">
       <div ref={sectionRef} className="container-page py-20 md:py-24 lg:py-28">
 
         {/* Unified Card Container */}

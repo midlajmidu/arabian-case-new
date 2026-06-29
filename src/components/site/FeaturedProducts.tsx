@@ -46,7 +46,7 @@ export function FeaturedProducts() {
   const featured = categories.slice(0, 6);
 
   return (
-    <Section className="bg-[#f0f3fa] !py-16 md:!py-20 lg:!py-24 overflow-hidden">
+    <Section id="featured-products" className="bg-[#f0f3fa] !py-16 md:!py-20 lg:!py-24 overflow-hidden">
       <div className="mb-10 flex flex-wrap items-end justify-between gap-6">
         <div>
           <h2 className="font-display text-3xl md:text-4xl lg:text-[40px] leading-tight text-brand-navy tracking-tight">

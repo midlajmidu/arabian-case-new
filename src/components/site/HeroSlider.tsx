@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ShieldCheck, Sparkles, Truck } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { ScrollIndicator } from "./ScrollIndicator";
 import flightCasesImg from "@/assets/hero-flight-cases.webp";
 import foamImg from "@/assets/hero-foam-inserts.webp";
 import cratesImg from "@/assets/hero-shipping-crates.webp";
@@ -203,6 +204,11 @@ export function HeroSlider() {
           </div>
 
         </div>
+      </div>
+
+      {/* Scroll indicator */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden lg:block">
+        <ScrollIndicator targetSelector="#why-choose-us" />
       </div>
     </section>
   );

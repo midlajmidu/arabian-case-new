@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { Section, SectionHeader } from "./Section";
+import { ChevronDown } from "lucide-react";
+import { ScrollIndicator } from "./ScrollIndicator";
 
 // Import process assets
 import planningImg from "@/assets/process/planning.webp";
@@ -59,6 +61,13 @@ export function OurProcess() {
   const [activeStep, setActiveStep] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
 
+  const handleNextScroll = () => {
+    if (containerRef.current) {
+      const nextY = containerRef.current.getBoundingClientRect().bottom + window.scrollY;
+      window.scrollTo({ top: nextY, behavior: "smooth" });
+    }
+  };
+
   useEffect(() => {
     const observerOptions = {
       root: null,
@@ -94,7 +103,7 @@ export function OurProcess() {
     <>
       <div
         ref={containerRef}
-        className="relative w-full h-[480vh] bg-brand-navy"
+        className="relative w-full h-[430vh] bg-brand-navy"
       >
         {/* Scroll Triggers (spaced to keep final step sticky) */}
         <div id="process-trigger-0" className="absolute top-[0vh] h-[70vh] w-full pointer-events-none" />
@@ -102,10 +111,25 @@ export function OurProcess() {
         <div id="process-trigger-2" className="absolute top-[140vh] h-[70vh] w-full pointer-events-none" />
         <div id="process-trigger-3" className="absolute top-[210vh] h-[70vh] w-full pointer-events-none" />
         <div id="process-trigger-4" className="absolute top-[280vh] h-[70vh] w-full pointer-events-none" />
-        <div id="process-trigger-5" className="absolute top-[350vh] h-[130vh] w-full pointer-events-none" />
+        <div id="process-trigger-5" className="absolute top-[350vh] h-[80vh] w-full pointer-events-none" />
 
         {/* Sticky viewport content */}
         <div className="sticky top-[90px] h-[calc(100vh-90px)] w-full flex flex-col justify-between overflow-hidden py-4 md:py-8">
+          {/* Floating Scroll Down / Next Section indicator (Desktop) */}
+          <ScrollIndicator
+            label="Next Section"
+            disableHide={true}
+            targetSelector="#featured-products"
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 hidden lg:flex"
+          />
+          {/* Floating Scroll Down / Next Section button (Mobile/Tablet) */}
+          <button
+            onClick={handleNextScroll}
+            aria-label="Next section"
+            className="absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex lg:hidden h-12 w-12 items-center justify-center rounded-full border-2 border-brand-gold bg-brand-gold text-brand-navy shadow-lg shadow-brand-gold/25 transition-all duration-300 active:scale-95 animate-bounce cursor-pointer"
+          >
+            <ChevronDown className="h-5.5 w-5.5" />
+          </button>
           {/* Immersive background cross-fade (Active on both Desktop and Mobile) */}
           {processSteps.map((step, idx) => (
             <img
@@ -124,12 +148,12 @@ export function OurProcess() {
 
           {/* Full Process Header: Slide to top & fade out when activeStep > 0 */}
           <div className={cn(
-            "absolute top-8 md:top-12 lg:top-16 left-0 right-0 text-center px-6 z-20 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] transform",
+            "absolute top-4 lg:top-6 left-0 right-0 text-center px-6 z-20 transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)] transform",
             activeStep === 0
               ? "translate-y-0 opacity-100 pointer-events-auto"
               : "-translate-y-full opacity-0 pointer-events-none"
           )}>
-            <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl leading-tight text-brand-gold tracking-tight">
+            <h2 className="font-display text-2xl sm:text-3xl lg:text-4xl leading-tight text-brand-gold tracking-tight pb-0">
               Our Process
             </h2>
           </div>
@@ -137,16 +161,16 @@ export function OurProcess() {
           {/* Main Layout Container: Shifts down when activeStep === 0 to give space to the header */}
           <div className={cn(
             "relative z-10 flex-1 w-full max-w-[1280px] mx-auto px-6 flex items-center overflow-hidden transition-all duration-1000 ease-[cubic-bezier(0.25,1,0.5,1)]",
-            activeStep === 0 ? "pt-24 md:pt-32 lg:pt-36" : "pt-0"
+            activeStep === 0 ? "pt-16 lg:pt-20" : "pt-0"
           )}>
 
             {/* ========================================================================= */}
             {/* Desktop Layout (lg:grid) */}
             {/* ========================================================================= */}
-            <div className="hidden lg:grid w-full grid-cols-[1.3fr_1fr] gap-16 items-center">
+            <div className="hidden lg:grid w-full grid-cols-[1.1fr_1fr] gap-8 xl:gap-16 items-center">
 
               {/* Left Column: Progress Step Nav */}
-              <div className="flex flex-col gap-4 lg:gap-5">
+              <div className="flex flex-col gap-3 lg:gap-4">
                 {processSteps.map((step, idx) => (
                   <div
                     key={step.num}
@@ -159,7 +183,7 @@ export function OurProcess() {
                     }}
                   >
                     <h3 className={cn(
-                      "font-display text-4xl lg:text-6xl xl:text-7xl font-extralight tracking-tight leading-tight transition-colors",
+                      "font-display text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-extralight tracking-tight leading-tight transition-colors",
                       idx === activeStep ? "text-white" : "text-white/80"
                     )}>
                       {step.title}
@@ -169,7 +193,7 @@ export function OurProcess() {
               </div>
 
               {/* Right Column: Visual Showcase Card */}
-              <div className="relative overflow-hidden rounded-[4px] border border-white/10 bg-white/5 backdrop-blur-xl p-8 shadow-2xl h-[550px] flex flex-col justify-between">
+              <div className="relative overflow-hidden rounded-[4px] border border-white/10 bg-white/5 backdrop-blur-xl p-6 xl:p-8 shadow-2xl h-[420px] xl:h-[480px] 2xl:h-[550px] flex flex-col justify-between">
 
                 {/* Card Ambient Background Image Cross-fade (Flora AI style) */}
                 <div className="absolute inset-0 z-0 select-none pointer-events-none overflow-hidden rounded-[4px]">
@@ -232,10 +256,10 @@ export function OurProcess() {
             {/* ========================================================================= */}
             {/* Mobile & Tablet Layout (lg:hidden) */}
             {/* ========================================================================= */}
-            <div className="lg:hidden w-full h-full flex flex-col justify-between py-4 max-w-[640px] mx-auto">
+            <div className="lg:hidden w-full flex flex-col py-4 max-w-[640px] mx-auto">
 
               {/* Active Card container - Cross-fading the active step */}
-              <div className="relative flex-1 flex items-center justify-center min-h-[360px] xs:min-h-[400px]">
+              <div className="relative w-full min-h-[420px] xs:min-h-[450px] flex items-center justify-center">
                 {processSteps.map((step, idx) => (
                   <div
                     key={`mobile-card-${step.num}`}
@@ -279,34 +303,37 @@ export function OurProcess() {
                         </div>
 
                         {/* Bottom tagline and desc */}
-                        <div>
-                          <span className="text-brand-gold text-[9px] font-semibold uppercase tracking-[0.2em] block mb-1">
-                            {step.tagline}
-                          </span>
-                          <p className="text-xs xs:text-sm text-white/70 leading-relaxed font-light">
-                            {step.desc}
-                          </p>
+                        <div className="flex flex-col gap-4">
+                          <div>
+                            <span className="text-brand-gold text-[9px] font-semibold uppercase tracking-[0.2em] block mb-1">
+                              {step.tagline}
+                            </span>
+                            <p className="text-xs xs:text-sm text-white/70 leading-relaxed font-light">
+                              {step.desc}
+                            </p>
+                          </div>
+
+                          {/* Dots inside card (below description) */}
+                          <div className="flex justify-center gap-2 pt-1 pb-1">
+                            {processSteps.map((_, dotIdx) => (
+                              <div
+                                key={`mobile-card-dot-${dotIdx}`}
+                                className={cn(
+                                  "h-1.5 rounded-full transition-all duration-500 cursor-pointer",
+                                  dotIdx === activeStep ? "w-6 bg-brand-gold" : "w-1.5 bg-white/20"
+                                )}
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  document.getElementById(`process-trigger-${dotIdx}`)?.scrollIntoView({ behavior: 'smooth' });
+                                }}
+                              />
+                            ))}
+                          </div>
                         </div>
                       </div>
 
                     </div>
                   </div>
-                ))}
-              </div>
-
-              {/* Mobile bottom progress dots indicator */}
-              <div className="flex justify-center gap-2 mt-4 z-20">
-                {processSteps.map((_, idx) => (
-                  <div
-                    key={`dot-${idx}`}
-                    className={cn(
-                      "h-1.5 rounded-full transition-all duration-500 cursor-pointer",
-                      idx === activeStep ? "w-6 bg-brand-gold" : "w-1.5 bg-white/20"
-                    )}
-                    onClick={() => {
-                      document.getElementById(`process-trigger-${idx}`)?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                  />
                 ))}
               </div>
             </div>
