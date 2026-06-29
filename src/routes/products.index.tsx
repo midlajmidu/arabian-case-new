@@ -27,7 +27,6 @@ export const Route = createFileRoute("/products/")({
         </div>
       </div>
       <Section>
-        <SectionHeader eyebrow="Categories" title="Browse by category" />
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {categories.map((c) => (
             <CategoryCard key={c.slug} slug={c.slug} title={c.title} short={c.short} description={c.description} image={c.image} alt={c.imageAlt} />

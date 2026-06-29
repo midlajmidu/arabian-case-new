@@ -59,7 +59,7 @@ export function WhyChooseUs() {
 
               {/* Description */}
               <p className="text-sm sm:text-base text-white/70 leading-relaxed max-w-md pt-2">
-                A premier UAE manufacturer of custom flight cases, precision CNC foam inserts, and heavy-duty industrial packaging. Designed and built in our Dubai facility to exacting standards, we combine advanced engineering with local manufacturing expertise to deliver maximum protection for your critical assets.
+                Each case is custom-made using high-quality materials, heavy-duty hardware, and precision foam inserts to provide a secure fit for your equipment. Whether for audiovisual, medical, military, industrial, or commercial applications, our flight cases deliver durability, reliability, and professional-grade protection you can trust.
               </p>
             </div>
 
