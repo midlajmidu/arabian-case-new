@@ -3,8 +3,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { HeroSlider } from "@/components/site/HeroSlider";
 import { ScrollReveal } from "@/components/site/ScrollReveal";
 import { SITE } from "@/lib/site";
-
-const WhyChooseUs = lazy(() => import("@/components/site/WhyChooseUs").then(m => ({ default: m.WhyChooseUs })));
+import { WhyChooseUs } from "@/components/site/WhyChooseUs";
 const OurProcess = lazy(() => import("@/components/site/OurProcess").then(m => ({ default: m.OurProcess })));
 const FeaturedProducts = lazy(() => import("@/components/site/FeaturedProducts").then(m => ({ default: m.FeaturedProducts })));
 const CTABanner = lazy(() => import("@/components/site/CTABanner").then(m => ({ default: m.CTABanner })));
@@ -30,10 +29,11 @@ function Index() {
     <div className="bg-white">
       <HeroSlider />
 
+      <ScrollReveal>
+        <WhyChooseUs />
+      </ScrollReveal>
+
       <Suspense fallback={null}>
-        <ScrollReveal>
-          <WhyChooseUs />
-        </ScrollReveal>
 
 
         <ScrollReveal>
