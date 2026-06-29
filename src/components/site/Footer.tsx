@@ -7,10 +7,14 @@ import { categories } from "@/data/catalog";
 export function Footer() {
   return (
     <footer className="bg-brand-navy text-white/90">
-      <div className="container-page py-16 grid gap-10 md:grid-cols-5">
-        <div className="md:col-span-2">
+      <div className="container-page py-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-10">
+        <div className="sm:col-span-2 md:col-span-2">
           <img src={logo} alt={SITE.name} className="h-14 w-auto brightness-0 invert" />
           <p className="mt-4 max-w-sm text-sm leading-relaxed text-white/70">{SITE.description}</p>
+          <div className="mt-4 inline-flex items-center gap-2 px-3 py-1 rounded-md border border-white/10 bg-white/5 text-xs text-brand-gold font-medium w-fit">
+            <span className="h-1.5 w-1.5 rounded-full bg-brand-gold" />
+            <span>ISO Certified Company</span>
+          </div>
           <div className="mt-6 flex gap-3">
             <a href="#" aria-label="Facebook" className="grid h-9 w-9 place-items-center rounded-full border border-white/15 transition hover:bg-white/10"><Facebook className="h-4 w-4" /></a>
             <a href="https://www.instagram.com/arabiancases/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="grid h-9 w-9 place-items-center rounded-full border border-white/15 transition hover:bg-white/10"><Instagram className="h-4 w-4" /></a>
@@ -41,12 +45,12 @@ export function Footer() {
             ))}
           </ul>
         </div>
-        <div>
+        <div className="sm:col-span-2 md:col-span-1 min-w-0">
           <h3 className="font-display text-base mb-4">Contact</h3>
           <ul className="space-y-3 text-sm text-white/70">
-            <li className="flex gap-3"><MapPin className="h-4 w-4 mt-0.5 shrink-0 text-brand-gold" />{SITE.address.street}, {SITE.address.city}, {SITE.address.country}</li>
-            <li className="flex gap-3"><Phone className="h-4 w-4 mt-0.5 shrink-0 text-brand-gold" /><a href={`tel:${SITE.phoneIntl}`} className="hover:text-white">{SITE.phone}</a></li>
-            <li className="flex gap-3"><Mail className="h-4 w-4 mt-0.5 shrink-0 text-brand-gold" /><a href={`mailto:${SITE.email}`} className="hover:text-white">{SITE.email}</a></li>
+            <li className="flex gap-3 min-w-0"><MapPin className="h-4 w-4 mt-0.5 shrink-0 text-brand-gold" /><span className="break-words">{SITE.address.street}, {SITE.address.city}, {SITE.address.country}</span></li>
+            <li className="flex gap-3 min-w-0"><Phone className="h-4 w-4 mt-0.5 shrink-0 text-brand-gold" /><a href={`tel:${SITE.phoneIntl}`} className="hover:text-white break-all">{SITE.phone}</a></li>
+            <li className="flex gap-3 min-w-0"><Mail className="h-4 w-4 mt-0.5 shrink-0 text-brand-gold" /><a href={`mailto:${SITE.email}`} className="hover:text-white break-all">{SITE.email}</a></li>
           </ul>
         </div>
       </div>
