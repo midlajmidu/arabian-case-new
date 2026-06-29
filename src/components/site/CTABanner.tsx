@@ -33,8 +33,7 @@ export function CTABanner({
                 Let's Build Together
               </span>
               <h2 className="font-display text-4xl md:text-5xl font-medium text-white leading-[1.15] tracking-tight">
-                Need a Custom <br className="hidden md:block" />
-                Manufacturing Quote?
+                Need a Quote?
               </h2>
               <p className="text-white/70 text-base md:text-lg leading-relaxed max-w-xl mt-2">
                 {description}

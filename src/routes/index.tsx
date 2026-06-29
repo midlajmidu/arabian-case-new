@@ -8,6 +8,7 @@ const WhyChooseUs = lazy(() => import("@/components/site/WhyChooseUs").then(m =>
 const OurProcess = lazy(() => import("@/components/site/OurProcess").then(m => ({ default: m.OurProcess })));
 const FeaturedProducts = lazy(() => import("@/components/site/FeaturedProducts").then(m => ({ default: m.FeaturedProducts })));
 const CTABanner = lazy(() => import("@/components/site/CTABanner").then(m => ({ default: m.CTABanner })));
+const QualityTrust = lazy(() => import("@/components/site/QualityTrust").then(m => ({ default: m.QualityTrust })));
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -34,6 +35,7 @@ function Index() {
           <WhyChooseUs />
         </ScrollReveal>
 
+
         <ScrollReveal>
           <OurProcess />
         </ScrollReveal>
@@ -41,6 +43,11 @@ function Index() {
         <ScrollReveal>
           <FeaturedProducts />
         </ScrollReveal>
+
+        <ScrollReveal>
+          <QualityTrust />
+        </ScrollReveal>
+
 
         <ScrollReveal>
           <CTABanner />
