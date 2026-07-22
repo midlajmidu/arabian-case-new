@@ -10,8 +10,6 @@ import {
   ArrowRight,
   Phone,
   Mail,
-  ChevronLeft,
-  ChevronRight,
 } from "lucide-react";
 import { useState } from "react";
 import { SITE } from "@/lib/site";
@@ -116,7 +114,7 @@ function ProductPage() {
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
               className={cn(
-                "group relative overflow-hidden rounded-[22px] border border-brand-border shadow-sm flex items-center justify-center transition-colors select-none",
+                "relative overflow-hidden rounded-[22px] border border-brand-border shadow-sm flex items-center justify-center transition-colors select-none",
                 gallery[activeImg]?.type === "product" ? "bg-white p-6 md:p-8" : "bg-brand-soft"
               )}
             >
@@ -133,39 +131,6 @@ function ProductPage() {
               <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.22em] text-brand-navy backdrop-blur">
                 Made in Dubai
               </span>
-              {/* Prev / Next arrow buttons */}
-              {gallery.length > 1 && (
-                <>
-                  <button
-                    onClick={() => setActiveImg((prev) => (prev === 0 ? gallery.length - 1 : prev - 1))}
-                    aria-label="Previous image"
-                    className="absolute left-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-md backdrop-blur transition opacity-0 group-hover:opacity-100 hover:bg-white hover:scale-110 active:scale-95"
-                  >
-                    <ChevronLeft className="h-5 w-5 text-brand-navy" />
-                  </button>
-                  <button
-                    onClick={() => setActiveImg((prev) => (prev === gallery.length - 1 ? 0 : prev + 1))}
-                    aria-label="Next image"
-                    className="absolute right-3 top-1/2 -translate-y-1/2 z-10 flex h-10 w-10 items-center justify-center rounded-full bg-white/80 shadow-md backdrop-blur transition opacity-0 group-hover:opacity-100 hover:bg-white hover:scale-110 active:scale-95"
-                  >
-                    <ChevronRight className="h-5 w-5 text-brand-navy" />
-                  </button>
-                  {/* Dot counter */}
-                  <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 opacity-0 group-hover:opacity-100 transition">
-                    {gallery.map((_, i) => (
-                      <button
-                        key={i}
-                        onClick={() => setActiveImg(i)}
-                        aria-label={`Go to image ${i + 1}`}
-                        className={cn(
-                          "h-1.5 rounded-full transition-all",
-                          i === activeImg ? "w-5 bg-brand-navy" : "w-1.5 bg-brand-navy/30"
-                        )}
-                      />
-                    ))}
-                  </div>
-                </>
-              )}
             </div>
             {/* Thumbnails — desktop grid, mobile swipe */}
             {gallery.length > 1 && (
