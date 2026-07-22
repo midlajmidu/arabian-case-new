@@ -30,7 +30,7 @@ export interface PortfolioItem {
 
 // ── Dynamically load today's images ────────────────────────────────────
 const todayImages = import.meta.glob(
-  "/Website picture 2/today image/**/*.{png,jpg,jpeg,webp,JPG,JPEG,PNG,heic,HEIC}",
+  "/src/assets/product/**/*.{png,jpg,jpeg,webp,JPG,JPEG,PNG,heic,HEIC}",
   { eager: true, import: "default" }
 ) as Record<string, string>;
 
@@ -45,17 +45,22 @@ interface ScannedImage {
 
 const scannedImages: ScannedImage[] = Object.entries(todayImages).map(([path, url]) => {
   const filename = path.split("/").pop() || "";
-  const stem = filename.replace(/\.[^/.]+$/, "");
-
+  let stem = filename.replace(/\.[^/.]+$/, "");
+  
+  // Custom mapping for WhatsApp image to mixer case 2
+  if (stem.startsWith("WhatsApp Image 2026-07-22")) {
+    stem = "mixer case 2";
+  }
+  
   // Clean stem of gallery keywords
   const baseName = stem
     .toLowerCase()
     .replace(/\b(angle|side|view|perspective|2|second)\b/g, "")
     .replace(/\s+/g, " ")
     .trim();
-
+    
   const isGallery = /\b(angle|side|view|perspective|2|second)\b/i.test(stem);
-
+  
   return {
     path,
     url,
@@ -66,113 +71,30 @@ const scannedImages: ScannedImage[] = Object.entries(todayImages).map(([path, ur
   };
 });
 
-// ── Load local product assets from src/assets/product/ ───────────────
-const localProductAssets = import.meta.glob(
-  "../assets/product/*.{png,jpg,jpeg,webp,JPG,JPEG,PNG}",
-  { eager: true, import: "default" }
-) as Record<string, string>;
-
-/**
- * Strip trailing number suffix from a stem to get the product group name.
- * e.g. "speaker case 3" → "speaker case",  "rack case 5" → "rack case"
- * Files with no numeric suffix become their own group.
- */
-function getLocalProductGroup(stem: string): string {
-  return stem
-    .toLowerCase()
-    .replace(/_jpg$/, "")         // handle "21_jpg" style
-    .replace(/\s+\d+$/, "")       // strip trailing " 1", " 10", etc.
-    .trim();
-}
-
-/**
- * Heuristic: map a local product group name to one or more catalog
- * product title keywords so getProductImages() can find a match.
- */
-const LOCAL_GROUP_ALIASES: Record<string, string[]> = {
-  "speaker case": ["audio equipment cases", "speaker"],
-  "mixer case": ["audio equipment cases", "mixer"],
-  "rack case": ["rack cases"],
-  "keyboard case": ["dj tables", "keyboard"],
-  "cable trunk": ["cable trunks"],
-  "utility case": ["utility covers", "utility"],
-  // The two unnamed files — treat 21_jpg as shipping crates extra
-  "21": ["shipping crates", "wooden crates", "wooden boxes"],
-  "whatsapp image 2026-07-22 at 6.41.01 pm": ["rack cases"],
-};
-
-interface LocalProductGroup {
-  groupName: string;
-  aliases: string[];
-  images: string[];     // resolved URLs
-}
-
-/** All local product images, grouped by product name */
-const localProductGroups: LocalProductGroup[] = (() => {
-  const map = new Map<string, string[]>();
-
-  for (const [path, url] of Object.entries(localProductAssets)) {
-    const filename = path.split("/").pop() || "";
-    const stem = filename.replace(/\.[^/.]+$/, "");
-    const group = getLocalProductGroup(stem);
-    if (!map.has(group)) map.set(group, []);
-    map.get(group)!.push(url);
-  }
-
-  return Array.from(map.entries()).map(([groupName, images]) => ({
-    groupName,
-    aliases: LOCAL_GROUP_ALIASES[groupName] ?? [groupName],
-    images,
-  }));
-})();
-
-/**
- * Given a product title, return all local-asset images whose group
- * aliases match the title (case-insensitive substring).
- * Returns { main, gallery } where main = first image, gallery = rest.
- */
-function getLocalProductMatch(
-  productTitle: string
-): { main: string; gallery: string[] } | null {
-  const lower = productTitle.toLowerCase();
-
-  // Collect all images from every matching group
-  const allMatched: string[] = [];
-  for (const group of localProductGroups) {
-    const matches = group.aliases.some((alias) => lower.includes(alias) || alias.includes(lower));
-    if (matches) {
-      allMatched.push(...group.images);
-    }
-  }
-
-  if (allMatched.length === 0) return null;
-  return { main: allMatched[0], gallery: allMatched.slice(1) };
-}
-
 // ── Word-based similarity matcher ──────────────────────────────────────
 function getSimilarityScore(str1: string, str2: string): number {
   const getWords = (s: string) =>
     s.toLowerCase()
-      .replace(/[^a-z0-9]/g, " ")
-      .split(/\s+/)
-      .filter(Boolean)
-      .map(w => {
-        if (w === "wodden") return "wooden";
-        if (w === "pallet" || w === "pallets") return "pallet";
-        if (w === "box" || w === "boxes") return "box";
-        if (w === "crate" || w === "crates") return "crate";
-        if (w === "sheet" || w === "sheets") return "sheet";
-        if (w === "table" || w === "tables") return "table";
-        if (w === "insert" || w === "inserts") return "insert";
-        if (w === "cover" || w === "covers" || w === "case" || w === "cases") return "case";
-        return w;
-      });
+     .replace(/[^a-z0-9]/g, " ")
+     .split(/\s+/)
+     .filter(Boolean)
+     .map(w => {
+       if (w === "wodden") return "wooden";
+       if (w === "pallet" || w === "pallets") return "pallet";
+       if (w === "box" || w === "boxes") return "box";
+       if (w === "crate" || w === "crates") return "crate";
+       if (w === "sheet" || w === "sheets") return "sheet";
+       if (w === "table" || w === "tables") return "table";
+       if (w === "insert" || w === "inserts") return "insert";
+       if (w === "cover" || w === "covers" || w === "case" || w === "cases") return "case";
+       return w;
+     });
 
   const w1 = getWords(str1);
   const w2 = getWords(str2);
-
+  
   if (w1.length === 0 || w2.length === 0) return 0;
-
+  
   // Custom synonym handling: if both contain "custom", "sheet" and "insert" match
   const hasCustom = w1.includes("custom") && w2.includes("custom");
   const normalizedW1 = w1.map(w => (w === "sheet" && hasCustom ? "insert" : w));
@@ -184,7 +106,7 @@ function getSimilarityScore(str1: string, str2: string): number {
       matches++;
     }
   }
-
+  
   const union = new Set([...normalizedW1, ...normalizedW2]).size;
   return matches / union;
 }
@@ -192,7 +114,7 @@ function getSimilarityScore(str1: string, str2: string): number {
 function getTodayMatch(productName: string): { main: ScannedImage; gallery: ScannedImage[] } | null {
   let bestScore = 0;
   let bestBaseName = "";
-
+  
   for (const img of scannedImages) {
     const score = getSimilarityScore(productName, img.baseName);
     if (score > bestScore) {
@@ -200,15 +122,15 @@ function getTodayMatch(productName: string): { main: ScannedImage; gallery: Scan
       bestBaseName = img.baseName;
     }
   }
-
+  
   if (bestScore < 0.6) {
     return null;
   }
-
+  
   const matches = scannedImages.filter(img => img.baseName === bestBaseName);
   const main = matches.find(img => !img.isGallery) || matches[0];
   const gallery = matches.filter(img => img !== main);
-
+  
   return { main, gallery };
 }
 
@@ -331,10 +253,10 @@ function getMatchingImages(
 
 // ── Reusable dynamic image loader utility ─────────────────────────────
 export function getProductImages(productName: string): ProductImageSet {
-  // 1. Get fallback images first (portfolio-items keyword matching)
+  // 1. Get fallback images first
   let fallbackMain: ProductImage | null = null;
   let fallbackGallery: ProductImage[] = [];
-
+  
   for (const cat of categories) {
     const product = cat.products.find(
       (p) => p.title.toLowerCase() === productName.toLowerCase()
@@ -356,66 +278,87 @@ export function getProductImages(productName: string): ProductImageSet {
     }
   }
 
-  // 2. Get today's match (Website picture 2 / today image folder)
+  // 2. Get today's match
   const todayMatch = getTodayMatch(productName);
 
-  // 3. Get local product asset match (src/assets/product/) — highest priority
-  const localMatch = getLocalProductMatch(productName);
+  // 3. Apply custom logic for Audio Equipment Cases to merge mixer, speaker, and keyboard cases
+  const isAudioEquipment = 
+    productName.toLowerCase() === "audio-equipment-cases" || 
+    productName.toLowerCase() === "audio equipment cases" ||
+    productName.toLowerCase() === "audio equipment flight cases";
 
-  // Helper: convert local URL to ProductImage
-  const toProductImg = (url: string): ProductImage => ({
-    large: url,
-    thumb: url,
-    type: "product",
-  });
-
-  // 4. Apply custom logic for Audio Equipment Cases
-  //    Only show new local assets + today images — skip old portfolio fallback
-  if (
-    productName.toLowerCase() === "audio-equipment-cases" ||
-    productName.toLowerCase() === "audio equipment cases"
-  ) {
-    const localImgs: ProductImage[] = localMatch
-      ? [toProductImg(localMatch.main), ...localMatch.gallery.map(toProductImg)]
-      : [];
-    const todayImgs: ProductImage[] = todayMatch
-      ? [
-        toProductImg(todayMatch.main.url),
-        ...todayMatch.gallery.map((img) => toProductImg(img.url)),
-      ]
-      : [];
-    const combined = [...localImgs, ...todayImgs];
-    // If no new images exist, return null so the page uses the category hero image
-    if (combined.length === 0) {
-      return { mainImage: null, galleryImages: [] };
+  if (isAudioEquipment) {
+    const audioImages = scannedImages.filter(img => 
+      img.baseName === "mixer case" || 
+      img.baseName === "speaker case" || 
+      img.baseName === "keyboard case"
+    );
+    
+    if (audioImages.length > 0) {
+      const main = audioImages.find(img => !img.isGallery) || audioImages[0];
+      const gallery = audioImages.filter(img => img !== main);
+      
+      return {
+        mainImage: {
+          large: main.url,
+          thumb: main.url,
+          type: "product",
+        },
+        galleryImages: [
+          ...gallery.map(img => ({
+            large: img.url,
+            thumb: img.url,
+            type: "product" as const,
+          })),
+          ...fallbackGallery,
+        ],
+      };
     }
-    return {
-      mainImage: combined[0],
-      galleryImages: combined.slice(1),
-    };
   }
 
-  // 5. Standard priority: local assets → today images → fallback
-  if (localMatch) {
-    return {
-      mainImage: toProductImg(localMatch.main),
-      galleryImages: [
-        ...localMatch.gallery.map(toProductImg),
-        // Append today's images as additional gallery entries
-        ...(todayMatch
-          ? [
-            toProductImg(todayMatch.main.url),
-            ...todayMatch.gallery.map((img) => toProductImg(img.url)),
-          ]
-          : []),
-      ],
-    };
+  // 4. Apply custom logic for DJ Tables to merge keyboard cases
+  const isDJTables =
+    productName.toLowerCase() === "dj-tables" ||
+    productName.toLowerCase() === "dj tables" ||
+    productName.toLowerCase() === "dj tables & flight cases";
+
+  if (isDJTables) {
+    const djImages = scannedImages.filter(img => img.baseName === "keyboard case");
+    if (djImages.length > 0) {
+      const main = djImages.find(img => !img.isGallery) || djImages[0];
+      const gallery = djImages.filter(img => img !== main);
+      
+      return {
+        mainImage: {
+          large: main.url,
+          thumb: main.url,
+          type: "product",
+        },
+        galleryImages: [
+          ...gallery.map(img => ({
+            large: img.url,
+            thumb: img.url,
+            type: "product" as const,
+          })),
+          ...fallbackGallery,
+        ],
+      };
+    }
   }
 
+  // 5. Standard match logic for other products
   if (todayMatch) {
     return {
-      mainImage: toProductImg(todayMatch.main.url),
-      galleryImages: todayMatch.gallery.map((img) => toProductImg(img.url)),
+      mainImage: {
+        large: todayMatch.main.url,
+        thumb: todayMatch.main.url,
+        type: "product",
+      },
+      galleryImages: todayMatch.gallery.map((img) => ({
+        large: img.url,
+        thumb: img.url,
+        type: "product",
+      })),
     };
   }
 
@@ -432,7 +375,7 @@ export function getTodayPortfolioItems(): PortfolioItem[] {
     if (lower.includes("foam")) {
       return { category: "foam-inserts", categoryLabel: "Foam Inserts" };
     }
-    if (lower.includes("pallet") || lower.includes("box") || lower.includes("crate")) {
+    if (lower.includes("pallet") || lower.includes("box") || lower.includes("crate") || lower.includes("21_jpg")) {
       return { category: "shipping-crates", categoryLabel: "Shipping Crates" };
     }
     if (lower.includes("furniture") || lower.includes("sofa") || lower.includes("table")) {
@@ -440,6 +383,15 @@ export function getTodayPortfolioItems(): PortfolioItem[] {
     }
     if (lower.includes("utility")) {
       return { category: "utility-covers", categoryLabel: "Utility Covers" };
+    }
+    if (lower.includes("mixer") || lower.includes("speaker") || lower.includes("keyboard") || lower.includes("rack") || lower.includes("cable") || lower.includes("whatsapp image")) {
+      if (lower.includes("mixer") || lower.includes("speaker") || lower.includes("whatsapp image")) {
+        return { category: "audio-equipment-cases", categoryLabel: "Audio Equipment Cases" };
+      }
+      if (lower.includes("keyboard")) {
+        return { category: "flight-cases", categoryLabel: "Flight Cases" };
+      }
+      return { category: "flight-cases", categoryLabel: "Flight Cases" };
     }
     return { category: "projects", categoryLabel: "Projects" };
   };
