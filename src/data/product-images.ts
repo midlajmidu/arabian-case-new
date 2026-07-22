@@ -30,7 +30,7 @@ export interface PortfolioItem {
 
 // ── Dynamically load today's images ────────────────────────────────────
 const todayImages = import.meta.glob(
-  "/Website picture 2/today image/**/*.{png,jpg,jpeg,webp,JPG,JPEG,PNG,heic,HEIC}",
+  "/src/assets/product/**/*.{png,jpg,jpeg,webp,JPG,JPEG,PNG,heic,HEIC}",
   { eager: true, import: "default" }
 ) as Record<string, string>;
 
@@ -45,7 +45,12 @@ interface ScannedImage {
 
 const scannedImages: ScannedImage[] = Object.entries(todayImages).map(([path, url]) => {
   const filename = path.split("/").pop() || "";
-  const stem = filename.replace(/\.[^/.]+$/, "");
+  let stem = filename.replace(/\.[^/.]+$/, "");
+  
+  // Custom mapping for WhatsApp image to mixer case 2
+  if (stem.startsWith("WhatsApp Image 2026-07-22")) {
+    stem = "mixer case 2";
+  }
   
   // Clean stem of gallery keywords
   const baseName = stem
@@ -276,30 +281,72 @@ export function getProductImages(productName: string): ProductImageSet {
   // 2. Get today's match
   const todayMatch = getTodayMatch(productName);
 
-  // 3. Apply custom logic for Audio Equipment Cases to merge keyboard cases
-  if (productName.toLowerCase() === "audio-equipment-cases" || productName.toLowerCase() === "audio equipment cases") {
-    const keyboardGallery: ProductImage[] = [];
-    if (todayMatch) {
-      keyboardGallery.push({
-        large: todayMatch.main.url,
-        thumb: todayMatch.main.url,
-        type: "product",
-      });
-      for (const img of todayMatch.gallery) {
-        keyboardGallery.push({
-          large: img.url,
-          thumb: img.url,
+  // 3. Apply custom logic for Audio Equipment Cases to merge mixer, speaker, and keyboard cases
+  const isAudioEquipment = 
+    productName.toLowerCase() === "audio-equipment-cases" || 
+    productName.toLowerCase() === "audio equipment cases" ||
+    productName.toLowerCase() === "audio equipment flight cases";
+
+  if (isAudioEquipment) {
+    const audioImages = scannedImages.filter(img => 
+      img.baseName === "mixer case" || 
+      img.baseName === "speaker case" || 
+      img.baseName === "keyboard case"
+    );
+    
+    if (audioImages.length > 0) {
+      const main = audioImages.find(img => !img.isGallery) || audioImages[0];
+      const gallery = audioImages.filter(img => img !== main);
+      
+      return {
+        mainImage: {
+          large: main.url,
+          thumb: main.url,
           type: "product",
-        });
-      }
+        },
+        galleryImages: [
+          ...gallery.map(img => ({
+            large: img.url,
+            thumb: img.url,
+            type: "product" as const,
+          })),
+          ...fallbackGallery,
+        ],
+      };
     }
-    return {
-      mainImage: fallbackMain,
-      galleryImages: [...keyboardGallery, ...fallbackGallery],
-    };
   }
 
-  // 4. Standard match logic for other products
+  // 4. Apply custom logic for DJ Tables to merge keyboard cases
+  const isDJTables =
+    productName.toLowerCase() === "dj-tables" ||
+    productName.toLowerCase() === "dj tables" ||
+    productName.toLowerCase() === "dj tables & flight cases";
+
+  if (isDJTables) {
+    const djImages = scannedImages.filter(img => img.baseName === "keyboard case");
+    if (djImages.length > 0) {
+      const main = djImages.find(img => !img.isGallery) || djImages[0];
+      const gallery = djImages.filter(img => img !== main);
+      
+      return {
+        mainImage: {
+          large: main.url,
+          thumb: main.url,
+          type: "product",
+        },
+        galleryImages: [
+          ...gallery.map(img => ({
+            large: img.url,
+            thumb: img.url,
+            type: "product" as const,
+          })),
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 5. Standard match logic for other products
   if (todayMatch) {
     return {
       mainImage: {
@@ -328,7 +375,7 @@ export function getTodayPortfolioItems(): PortfolioItem[] {
     if (lower.includes("foam")) {
       return { category: "foam-inserts", categoryLabel: "Foam Inserts" };
     }
-    if (lower.includes("pallet") || lower.includes("box") || lower.includes("crate")) {
+    if (lower.includes("pallet") || lower.includes("box") || lower.includes("crate") || lower.includes("21_jpg")) {
       return { category: "shipping-crates", categoryLabel: "Shipping Crates" };
     }
     if (lower.includes("furniture") || lower.includes("sofa") || lower.includes("table")) {
@@ -336,6 +383,15 @@ export function getTodayPortfolioItems(): PortfolioItem[] {
     }
     if (lower.includes("utility")) {
       return { category: "utility-covers", categoryLabel: "Utility Covers" };
+    }
+    if (lower.includes("mixer") || lower.includes("speaker") || lower.includes("keyboard") || lower.includes("rack") || lower.includes("cable") || lower.includes("whatsapp image")) {
+      if (lower.includes("mixer") || lower.includes("speaker") || lower.includes("whatsapp image")) {
+        return { category: "audio-equipment-cases", categoryLabel: "Audio Equipment Cases" };
+      }
+      if (lower.includes("keyboard")) {
+        return { category: "flight-cases", categoryLabel: "Flight Cases" };
+      }
+      return { category: "flight-cases", categoryLabel: "Flight Cases" };
     }
     return { category: "projects", categoryLabel: "Projects" };
   };
