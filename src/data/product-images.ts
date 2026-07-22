@@ -46,16 +46,16 @@ interface ScannedImage {
 const scannedImages: ScannedImage[] = Object.entries(todayImages).map(([path, url]) => {
   const filename = path.split("/").pop() || "";
   const stem = filename.replace(/\.[^/.]+$/, "");
-  
+
   // Clean stem of gallery keywords
   const baseName = stem
     .toLowerCase()
     .replace(/\b(angle|side|view|perspective|2|second)\b/g, "")
     .replace(/\s+/g, " ")
     .trim();
-    
+
   const isGallery = /\b(angle|side|view|perspective|2|second)\b/i.test(stem);
-  
+
   return {
     path,
     url,
@@ -90,14 +90,14 @@ function getLocalProductGroup(stem: string): string {
  * product title keywords so getProductImages() can find a match.
  */
 const LOCAL_GROUP_ALIASES: Record<string, string[]> = {
-  "speaker case":    ["audio equipment cases", "speaker"],
-  "mixer case":      ["audio equipment cases", "mixer"],
-  "rack case":       ["rack cases"],
-  "keyboard case":   ["dj tables", "keyboard"],
-  "cable trunk":     ["cable trunks"],
-  "utility case":    ["utility covers", "utility"],
+  "speaker case": ["audio equipment cases", "speaker"],
+  "mixer case": ["audio equipment cases", "mixer"],
+  "rack case": ["rack cases"],
+  "keyboard case": ["dj tables", "keyboard"],
+  "cable trunk": ["cable trunks"],
+  "utility case": ["utility covers", "utility"],
   // The two unnamed files — treat 21_jpg as shipping crates extra
-  "21":              ["shipping crates", "wooden crates", "wooden boxes"],
+  "21": ["shipping crates", "wooden crates", "wooden boxes"],
   "whatsapp image 2026-07-22 at 6.41.01 pm": ["rack cases"],
 };
 
@@ -153,26 +153,26 @@ function getLocalProductMatch(
 function getSimilarityScore(str1: string, str2: string): number {
   const getWords = (s: string) =>
     s.toLowerCase()
-     .replace(/[^a-z0-9]/g, " ")
-     .split(/\s+/)
-     .filter(Boolean)
-     .map(w => {
-       if (w === "wodden") return "wooden";
-       if (w === "pallet" || w === "pallets") return "pallet";
-       if (w === "box" || w === "boxes") return "box";
-       if (w === "crate" || w === "crates") return "crate";
-       if (w === "sheet" || w === "sheets") return "sheet";
-       if (w === "table" || w === "tables") return "table";
-       if (w === "insert" || w === "inserts") return "insert";
-       if (w === "cover" || w === "covers" || w === "case" || w === "cases") return "case";
-       return w;
-     });
+      .replace(/[^a-z0-9]/g, " ")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map(w => {
+        if (w === "wodden") return "wooden";
+        if (w === "pallet" || w === "pallets") return "pallet";
+        if (w === "box" || w === "boxes") return "box";
+        if (w === "crate" || w === "crates") return "crate";
+        if (w === "sheet" || w === "sheets") return "sheet";
+        if (w === "table" || w === "tables") return "table";
+        if (w === "insert" || w === "inserts") return "insert";
+        if (w === "cover" || w === "covers" || w === "case" || w === "cases") return "case";
+        return w;
+      });
 
   const w1 = getWords(str1);
   const w2 = getWords(str2);
-  
+
   if (w1.length === 0 || w2.length === 0) return 0;
-  
+
   // Custom synonym handling: if both contain "custom", "sheet" and "insert" match
   const hasCustom = w1.includes("custom") && w2.includes("custom");
   const normalizedW1 = w1.map(w => (w === "sheet" && hasCustom ? "insert" : w));
@@ -184,7 +184,7 @@ function getSimilarityScore(str1: string, str2: string): number {
       matches++;
     }
   }
-  
+
   const union = new Set([...normalizedW1, ...normalizedW2]).size;
   return matches / union;
 }
@@ -192,7 +192,7 @@ function getSimilarityScore(str1: string, str2: string): number {
 function getTodayMatch(productName: string): { main: ScannedImage; gallery: ScannedImage[] } | null {
   let bestScore = 0;
   let bestBaseName = "";
-  
+
   for (const img of scannedImages) {
     const score = getSimilarityScore(productName, img.baseName);
     if (score > bestScore) {
@@ -200,15 +200,15 @@ function getTodayMatch(productName: string): { main: ScannedImage; gallery: Scan
       bestBaseName = img.baseName;
     }
   }
-  
+
   if (bestScore < 0.6) {
     return null;
   }
-  
+
   const matches = scannedImages.filter(img => img.baseName === bestBaseName);
   const main = matches.find(img => !img.isGallery) || matches[0];
   const gallery = matches.filter(img => img !== main);
-  
+
   return { main, gallery };
 }
 
@@ -334,7 +334,7 @@ export function getProductImages(productName: string): ProductImageSet {
   // 1. Get fallback images first (portfolio-items keyword matching)
   let fallbackMain: ProductImage | null = null;
   let fallbackGallery: ProductImage[] = [];
-  
+
   for (const cat of categories) {
     const product = cat.products.find(
       (p) => p.title.toLowerCase() === productName.toLowerCase()
@@ -370,7 +370,7 @@ export function getProductImages(productName: string): ProductImageSet {
   });
 
   // 4. Apply custom logic for Audio Equipment Cases
-  //    Merge: local assets + today images only (no old fallback images)
+  //    Only show new local assets + today images — skip old portfolio fallback
   if (
     productName.toLowerCase() === "audio-equipment-cases" ||
     productName.toLowerCase() === "audio equipment cases"
@@ -380,14 +380,18 @@ export function getProductImages(productName: string): ProductImageSet {
       : [];
     const todayImgs: ProductImage[] = todayMatch
       ? [
-          toProductImg(todayMatch.main.url),
-          ...todayMatch.gallery.map((img) => toProductImg(img.url)),
-        ]
+        toProductImg(todayMatch.main.url),
+        ...todayMatch.gallery.map((img) => toProductImg(img.url)),
+      ]
       : [];
     const combined = [...localImgs, ...todayImgs];
+    // If no new images exist, return null so the page uses the category hero image
+    if (combined.length === 0) {
+      return { mainImage: null, galleryImages: [] };
+    }
     return {
-      mainImage: combined.length > 0 ? combined[0] : null,
-      galleryImages: combined.length > 0 ? combined.slice(1) : [],
+      mainImage: combined[0],
+      galleryImages: combined.slice(1),
     };
   }
 
@@ -400,9 +404,9 @@ export function getProductImages(productName: string): ProductImageSet {
         // Append today's images as additional gallery entries
         ...(todayMatch
           ? [
-              toProductImg(todayMatch.main.url),
-              ...todayMatch.gallery.map((img) => toProductImg(img.url)),
-            ]
+            toProductImg(todayMatch.main.url),
+            ...todayMatch.gallery.map((img) => toProductImg(img.url)),
+          ]
           : []),
       ],
     };
