@@ -46,21 +46,21 @@ interface ScannedImage {
 const scannedImages: ScannedImage[] = Object.entries(todayImages).map(([path, url]) => {
   const filename = path.split("/").pop() || "";
   let stem = filename.replace(/\.[^/.]+$/, "");
-  
+
   // Custom mapping for WhatsApp image to mixer case 2
   if (stem.startsWith("WhatsApp Image 2026-07-22")) {
     stem = "mixer case 2";
   }
-  
+
   // Clean stem of gallery keywords
   const baseName = stem
     .toLowerCase()
     .replace(/\b(angle|side|view|perspective|2|second)\b/g, "")
     .replace(/\s+/g, " ")
     .trim();
-    
+
   const isGallery = /\b(angle|side|view|perspective|2|second)\b/i.test(stem);
-  
+
   return {
     path,
     url,
@@ -75,26 +75,26 @@ const scannedImages: ScannedImage[] = Object.entries(todayImages).map(([path, ur
 function getSimilarityScore(str1: string, str2: string): number {
   const getWords = (s: string) =>
     s.toLowerCase()
-     .replace(/[^a-z0-9]/g, " ")
-     .split(/\s+/)
-     .filter(Boolean)
-     .map(w => {
-       if (w === "wodden") return "wooden";
-       if (w === "pallet" || w === "pallets") return "pallet";
-       if (w === "box" || w === "boxes") return "box";
-       if (w === "crate" || w === "crates") return "crate";
-       if (w === "sheet" || w === "sheets") return "sheet";
-       if (w === "table" || w === "tables") return "table";
-       if (w === "insert" || w === "inserts") return "insert";
-       if (w === "cover" || w === "covers" || w === "case" || w === "cases") return "case";
-       return w;
-     });
+      .replace(/[^a-z0-9]/g, " ")
+      .split(/\s+/)
+      .filter(Boolean)
+      .map(w => {
+        if (w === "wodden") return "wooden";
+        if (w === "pallet" || w === "pallets") return "pallet";
+        if (w === "box" || w === "boxes") return "box";
+        if (w === "crate" || w === "crates") return "crate";
+        if (w === "sheet" || w === "sheets") return "sheet";
+        if (w === "table" || w === "tables") return "table";
+        if (w === "insert" || w === "inserts") return "insert";
+        if (w === "cover" || w === "covers" || w === "case" || w === "cases") return "case";
+        return w;
+      });
 
   const w1 = getWords(str1);
   const w2 = getWords(str2);
-  
+
   if (w1.length === 0 || w2.length === 0) return 0;
-  
+
   // Custom synonym handling: if both contain "custom", "sheet" and "insert" match
   const hasCustom = w1.includes("custom") && w2.includes("custom");
   const normalizedW1 = w1.map(w => (w === "sheet" && hasCustom ? "insert" : w));
@@ -106,7 +106,7 @@ function getSimilarityScore(str1: string, str2: string): number {
       matches++;
     }
   }
-  
+
   const union = new Set([...normalizedW1, ...normalizedW2]).size;
   return matches / union;
 }
@@ -114,7 +114,7 @@ function getSimilarityScore(str1: string, str2: string): number {
 function getTodayMatch(productName: string): { main: ScannedImage; gallery: ScannedImage[] } | null {
   let bestScore = 0;
   let bestBaseName = "";
-  
+
   for (const img of scannedImages) {
     const score = getSimilarityScore(productName, img.baseName);
     if (score > bestScore) {
@@ -122,15 +122,15 @@ function getTodayMatch(productName: string): { main: ScannedImage; gallery: Scan
       bestBaseName = img.baseName;
     }
   }
-  
+
   if (bestScore < 0.6) {
     return null;
   }
-  
+
   const matches = scannedImages.filter(img => img.baseName === bestBaseName);
   const main = matches.find(img => !img.isGallery) || matches[0];
   const gallery = matches.filter(img => img !== main);
-  
+
   return { main, gallery };
 }
 
@@ -256,7 +256,7 @@ export function getProductImages(productName: string): ProductImageSet {
   // 1. Get fallback images first
   let fallbackMain: ProductImage | null = null;
   let fallbackGallery: ProductImage[] = [];
-  
+
   for (const cat of categories) {
     const product = cat.products.find(
       (p) => p.title.toLowerCase() === productName.toLowerCase()
@@ -282,22 +282,51 @@ export function getProductImages(productName: string): ProductImageSet {
   const todayMatch = getTodayMatch(productName);
 
   // 3. Apply custom logic for Audio Equipment Cases to merge mixer, speaker, and keyboard cases
-  const isAudioEquipment = 
-    productName.toLowerCase() === "audio-equipment-cases" || 
+  const isAudioEquipment =
+    productName.toLowerCase() === "audio-equipment-cases" ||
     productName.toLowerCase() === "audio equipment cases" ||
     productName.toLowerCase() === "audio equipment flight cases";
 
   if (isAudioEquipment) {
-    const audioImages = scannedImages.filter(img => 
-      img.baseName === "mixer case" || 
-      img.baseName === "speaker case" || 
-      img.baseName === "keyboard case"
+    const audioImages = scannedImages.filter(img =>
+      (img.stem.toLowerCase().includes("mixer case") ||
+       img.stem.toLowerCase().includes("speaker case") ||
+       img.stem.toLowerCase().includes("keyboard case") ||
+       img.filename.toLowerCase().startsWith("whatsapp image")) &&
+      !img.filename.toLowerCase().endsWith(".webp")
     );
-    
+
     if (audioImages.length > 0) {
-      const main = audioImages.find(img => !img.isGallery) || audioImages[0];
+      const main = audioImages.find(img => img.stem.toLowerCase() === "mixer case") || audioImages[0];
       const gallery = audioImages.filter(img => img !== main);
-      
+
+      return {
+        mainImage: {
+          large: main.url,
+          thumb: main.url,
+          type: "product",
+        },
+        galleryImages: gallery.map(img => ({
+          large: img.url,
+          thumb: img.url,
+          type: "product" as const,
+        })),
+      };
+    }
+  }
+
+  // 4. Apply custom logic for DJ Tables to merge keyboard cases
+  const isDJTables =
+    productName.toLowerCase() === "dj-tables" ||
+    productName.toLowerCase() === "dj tables" ||
+    productName.toLowerCase() === "dj tables & flight cases";
+
+  if (isDJTables) {
+    const djImages = scannedImages.filter(img => img.baseName === "keyboard case");
+    if (djImages.length > 0) {
+      const main = djImages.find(img => !img.isGallery) || djImages[0];
+      const gallery = djImages.filter(img => img !== main);
+
       return {
         mainImage: {
           large: main.url,
@@ -316,17 +345,52 @@ export function getProductImages(productName: string): ProductImageSet {
     }
   }
 
-  // 4. Apply custom logic for DJ Tables to merge keyboard cases
-  const isDJTables =
-    productName.toLowerCase() === "dj-tables" ||
-    productName.toLowerCase() === "dj tables" ||
-    productName.toLowerCase() === "dj tables & flight cases";
+  // 5. Apply custom logic for Rack Cases to display rack case 2, 3, 4, 5, 6
+  const isRackCases =
+    productName.toLowerCase() === "rack-cases" ||
+    productName.toLowerCase() === "rack cases" ||
+    productName.toLowerCase() === "rack flight cases";
 
-  if (isDJTables) {
-    const djImages = scannedImages.filter(img => img.baseName === "keyboard case");
-    if (djImages.length > 0) {
-      const main = djImages.find(img => !img.isGallery) || djImages[0];
-      const gallery = djImages.filter(img => img !== main);
+  if (isRackCases) {
+    const rackImages = scannedImages.filter(img =>
+      img.stem.toLowerCase().startsWith("rack case")
+    );
+    rackImages.sort((a, b) => a.stem.localeCompare(b.stem));
+    
+    if (rackImages.length > 0) {
+      const main = rackImages[0];
+      const gallery = rackImages.slice(1);
+      
+      return {
+        mainImage: {
+          large: main.url,
+          thumb: main.url,
+          type: "product",
+        },
+        galleryImages: gallery.map(img => ({
+          large: img.url,
+          thumb: img.url,
+          type: "product" as const,
+        })),
+      };
+    }
+  }
+
+  // 6. Apply custom logic for Cable Trunks to set "Cable trunk.jpeg" as the first (main) image and product card image
+  const isCableTrunks =
+    productName.toLowerCase() === "cable-trunks" ||
+    productName.toLowerCase() === "cable trunks" ||
+    productName.toLowerCase() === "heavy-duty cable trunks" ||
+    productName.toLowerCase() === "cable trunk";
+
+  if (isCableTrunks) {
+    const cableImages = scannedImages.filter(img =>
+      img.stem.toLowerCase().includes("cable trunk")
+    );
+    
+    if (cableImages.length > 0) {
+      const main = cableImages.find(img => img.stem.toLowerCase() === "cable trunk") || cableImages[0];
+      const otherScanned = cableImages.filter(img => img !== main);
       
       return {
         mainImage: {
@@ -335,13 +399,50 @@ export function getProductImages(productName: string): ProductImageSet {
           type: "product",
         },
         galleryImages: [
-          ...gallery.map(img => ({
+          ...otherScanned.map(img => ({
             large: img.url,
             thumb: img.url,
             type: "product" as const,
           })),
           ...fallbackGallery,
         ],
+      };
+    }
+  }
+
+  // 7. Apply custom logic for Utility Cases to display ONLY JPEG images (no webp) on product detail page and card
+  const isUtilityCases =
+    productName.toLowerCase() === "utility-flight-cases" ||
+    productName.toLowerCase() === "utility flight cases" ||
+    productName.toLowerCase() === "utility flight case" ||
+    productName.toLowerCase() === "utility-cases" ||
+    productName.toLowerCase() === "utility cases" ||
+    productName.toLowerCase() === "utility-covers" ||
+    productName.toLowerCase() === "utility covers";
+
+  if (isUtilityCases) {
+    const utilityImages = scannedImages.filter(img =>
+      img.stem.toLowerCase().includes("utility case") &&
+      !img.filename.toLowerCase().endsWith(".webp")
+    );
+    
+    utilityImages.sort((a, b) => a.stem.localeCompare(b.stem));
+    
+    if (utilityImages.length > 0) {
+      const main = utilityImages.find(img => img.stem.toLowerCase() === "utility case 1") || utilityImages[0];
+      const gallery = utilityImages.filter(img => img !== main);
+      
+      return {
+        mainImage: {
+          large: main.url,
+          thumb: main.url,
+          type: "product",
+        },
+        galleryImages: gallery.map(img => ({
+          large: img.url,
+          thumb: img.url,
+          type: "product" as const,
+        })),
       };
     }
   }
