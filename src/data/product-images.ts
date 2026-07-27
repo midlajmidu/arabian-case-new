@@ -447,6 +447,494 @@ export function getProductImages(productName: string): ProductImageSet {
     }
   }
 
+  // 8. Apply custom logic for Heavy-Duty Reusable Shipping Crates
+  const isHeavyDutyCrates =
+    productName.toLowerCase().includes("heavy-duty") ||
+    productName.toLowerCase().includes("heavy duty") ||
+    productName.toLowerCase() === "heavy-duty-wooden-crates" ||
+    productName.toLowerCase().includes("reusable shipping crates");
+
+  if (isHeavyDutyCrates) {
+    const crateImage = scannedImages.find(img => img.filename.toLowerCase() === "21_jpg.jpeg");
+    if (crateImage) {
+      return {
+        mainImage: {
+          large: crateImage.url,
+          thumb: crateImage.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: crateImage.url,
+            thumb: crateImage.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 9. Apply custom logic for Wooden Pallets
+  const isWoodenPallets =
+    productName.toLowerCase() === "wooden pallets" ||
+    productName.toLowerCase() === "custom-wooden-pallets" ||
+    productName.toLowerCase().includes("pallet");
+
+  if (isWoodenPallets) {
+    const palletImage = scannedImages.find(img => img.stem.toLowerCase().includes("wooden pallet"));
+    if (palletImage) {
+      return {
+        mainImage: {
+          large: palletImage.url,
+          thumb: palletImage.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: palletImage.url,
+            thumb: palletImage.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 10. Apply custom logic for Wooden Boxes
+  const isWoodenBoxes =
+    productName.toLowerCase() === "wooden boxes" ||
+    productName.toLowerCase() === "custom-wooden-boxes" ||
+    productName.toLowerCase().includes("wooden box");
+
+  if (isWoodenBoxes) {
+    const boxImage = scannedImages.find(img => img.stem.toLowerCase().includes("wooden box"));
+    if (boxImage) {
+      return {
+        mainImage: {
+          large: boxImage.url,
+          thumb: boxImage.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: boxImage.url,
+            thumb: boxImage.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 11. Custom logic for Industrial Equipment & Tool Bags
+  const isIndustrialToolBags =
+    productName.toLowerCase().includes("industrial equipment") ||
+    productName.toLowerCase() === "industrial-tool-bags" ||
+    productName.toLowerCase().includes("tool bag");
+
+  if (isIndustrialToolBags) {
+    const bagImage = scannedImages.find(img => img.stem.toLowerCase().includes("industrial tool bag"));
+    if (bagImage) {
+      return {
+        mainImage: {
+          large: bagImage.url,
+          thumb: bagImage.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: bagImage.url,
+            thumb: bagImage.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 12. Custom logic for Hot & Cool Bags
+  const isHotCoolBags =
+    productName.toLowerCase().includes("hot & cool") ||
+    productName.toLowerCase() === "hot-cool-bags" ||
+    productName.toLowerCase().includes("hot cool");
+
+  if (isHotCoolBags) {
+    const bagImage = scannedImages.find(img => img.stem.toLowerCase().includes("hot cool bag"));
+    if (bagImage) {
+      return {
+        mainImage: {
+          large: bagImage.url,
+          thumb: bagImage.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: bagImage.url,
+            thumb: bagImage.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 13. Custom logic for Laptop Bags, Backpacks & Travel Bags
+  const isLaptopTravelBags =
+    productName.toLowerCase().includes("laptop") ||
+    productName.toLowerCase() === "laptop-backpack-travel-bags" ||
+    productName.toLowerCase().includes("backpack");
+
+  if (isLaptopTravelBags) {
+    const bagImage = scannedImages.find(img => img.stem.toLowerCase().includes("laptop backpack travel bag"));
+    if (bagImage) {
+      return {
+        mainImage: {
+          large: bagImage.url,
+          thumb: bagImage.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: bagImage.url,
+            thumb: bagImage.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 14. Custom logic for Eco-Friendly Bags
+  const isEcoFriendlyBags =
+    productName.toLowerCase().includes("eco-friendly") ||
+    productName.toLowerCase() === "eco-friendly-bags" ||
+    productName.toLowerCase().includes("eco friendly");
+
+  if (isEcoFriendlyBags) {
+    const bagImage = scannedImages.find(img => img.stem.toLowerCase().includes("eco friendly bag"));
+    if (bagImage) {
+      return {
+        mainImage: {
+          large: bagImage.url,
+          thumb: bagImage.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: bagImage.url,
+            thumb: bagImage.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 15. Custom logic for Sofa Makers
+  const isSofaMakers =
+    productName.toLowerCase() === "sofa makers" ||
+    productName.toLowerCase() === "sofa-makers" ||
+    productName.toLowerCase().includes("sofa");
+
+  if (isSofaMakers) {
+    const sofaImg = scannedImages.find(img => img.stem.toLowerCase().includes("furniture sofa"));
+    if (sofaImg) {
+      return {
+        mainImage: {
+          large: sofaImg.url,
+          thumb: sofaImg.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: sofaImg.url,
+            thumb: sofaImg.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 16. Custom logic for Wooden Tables
+  const isWoodenTables =
+    productName.toLowerCase() === "wooden tables" ||
+    productName.toLowerCase() === "wooden-tables" ||
+    productName.toLowerCase().includes("wooden table");
+
+  if (isWoodenTables) {
+    const tableImg = scannedImages.find(img => img.stem.toLowerCase().includes("furniture wooden table"));
+    if (tableImg) {
+      return {
+        mainImage: {
+          large: tableImg.url,
+          thumb: tableImg.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: tableImg.url,
+            thumb: tableImg.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 17. Custom logic for Office Furniture
+  const isOfficeFurniture =
+    productName.toLowerCase() === "office furniture" ||
+    productName.toLowerCase() === "office-furniture" ||
+    productName.toLowerCase().includes("office furniture");
+
+  if (isOfficeFurniture) {
+    const officeImg = scannedImages.find(img => img.stem.toLowerCase().includes("furniture office desk"));
+    if (officeImg) {
+      return {
+        mainImage: {
+          large: officeImg.url,
+          thumb: officeImg.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: officeImg.url,
+            thumb: officeImg.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 18. Custom logic for School Furniture
+  const isSchoolFurniture =
+    productName.toLowerCase() === "school furniture" ||
+    productName.toLowerCase() === "school-furniture" ||
+    productName.toLowerCase().includes("school furniture");
+
+  if (isSchoolFurniture) {
+    const schoolImg = scannedImages.find(img => img.stem.toLowerCase().includes("furniture school desk"));
+    if (schoolImg) {
+      return {
+        mainImage: {
+          large: schoolImg.url,
+          thumb: schoolImg.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: schoolImg.url,
+            thumb: schoolImg.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 19. Custom logic for Premium Furniture
+  const isPremiumFurniture =
+    productName.toLowerCase() === "premium furniture" ||
+    productName.toLowerCase() === "premium-furniture" ||
+    productName.toLowerCase().includes("premium furniture");
+
+  if (isPremiumFurniture) {
+    const premiumImg = scannedImages.find(img => img.stem.toLowerCase().includes("furniture premium credenza"));
+    if (premiumImg) {
+      return {
+        mainImage: {
+          large: premiumImg.url,
+          thumb: premiumImg.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: premiumImg.url,
+            thumb: premiumImg.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 20. Custom logic for Custom Display Units
+  const isCustomDisplayUnits =
+    productName.toLowerCase() === "custom display units" ||
+    productName.toLowerCase() === "custom-display-units" ||
+    productName.toLowerCase().includes("custom display");
+
+  if (isCustomDisplayUnits) {
+    const displayImg = scannedImages.find(img => img.stem.toLowerCase().includes("furniture display unit"));
+    if (displayImg) {
+      return {
+        mainImage: {
+          large: displayImg.url,
+          thumb: displayImg.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: displayImg.url,
+            thumb: displayImg.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 21. Custom logic for Tool Control Foam
+  const isToolControlFoam =
+    productName.toLowerCase().includes("tool control") ||
+    productName.toLowerCase() === "tool-control";
+
+  if (isToolControlFoam) {
+    return {
+      mainImage: {
+        large: "/portfolio/large/tool-box1.webp",
+        thumb: "/portfolio/thumbs/tool-box1.webp",
+        type: "product",
+      },
+      galleryImages: [
+        {
+          large: "/portfolio/large/tool-box.webp",
+          thumb: "/portfolio/thumbs/tool-box.webp",
+          type: "product",
+        },
+        {
+          large: "/portfolio/large/toolbox-2.webp",
+          thumb: "/portfolio/thumbs/toolbox-2.webp",
+          type: "product",
+        },
+      ],
+    };
+  }
+
+  // 22. Custom logic for Shell Scheme Stand
+  const isShellScheme =
+    productName.toLowerCase().includes("shell scheme") ||
+    productName.toLowerCase() === "shell-scheme-stand";
+
+  if (isShellScheme) {
+    return {
+      mainImage: {
+        large: "/portfolio/large/exhibition-stand.webp",
+        thumb: "/portfolio/thumbs/exhibition-stand.webp",
+        type: "product",
+      },
+      galleryImages: [
+        {
+          large: "/portfolio/large/exhibitionstand2.webp",
+          thumb: "/portfolio/thumbs/exhibitionstand2.webp",
+          type: "product",
+        },
+      ],
+    };
+  }
+
+  // 23. Custom logic for Premium Exhibition Stand
+  const isPremiumExhibition =
+    productName.toLowerCase().includes("premium exhibition") ||
+    productName.toLowerCase() === "premium-exhibition-stand";
+
+  if (isPremiumExhibition) {
+    return {
+      mainImage: {
+        large: "/portfolio/large/premium-exhibition-stand.webp",
+        thumb: "/portfolio/thumbs/premium-exhibition-stand.webp",
+        type: "product",
+      },
+      galleryImages: [
+        {
+          large: "/portfolio/large/premuim-exhibition-stand.webp",
+          thumb: "/portfolio/thumbs/premuim-exhibition-stand.webp",
+          type: "product",
+        },
+      ],
+    };
+  }
+
+  // 24. Custom logic for Outdoor Kiosk
+  const isOutdoorKiosk =
+    productName.toLowerCase().includes("outdoor kiosk") ||
+    productName.toLowerCase() === "outdoor-kiosk";
+
+  if (isOutdoorKiosk) {
+    return {
+      mainImage: {
+        large: "/portfolio/large/outdoor-kiosk.webp",
+        thumb: "/portfolio/thumbs/outdoor-kiosk.webp",
+        type: "product",
+      },
+      galleryImages: [
+        {
+          large: "/portfolio/large/outdoor-kiosk1.webp",
+          thumb: "/portfolio/thumbs/outdoor-kiosk1.webp",
+          type: "product",
+        },
+        {
+          large: "/portfolio/large/outdoor-kiosk2.webp",
+          thumb: "/portfolio/thumbs/outdoor-kiosk2.webp",
+          type: "product",
+        },
+        {
+          large: "/portfolio/large/outdoor-kiosk4.webp",
+          thumb: "/portfolio/thumbs/outdoor-kiosk4.webp",
+          type: "product",
+        },
+      ],
+    };
+  }
+
+  // 25. Custom logic for Event Photo Ops
+  const isEventPhotoOps =
+    productName.toLowerCase().includes("photo ops") ||
+    productName.toLowerCase().includes("event photo") ||
+    productName.toLowerCase() === "event-photo-ops";
+
+  if (isEventPhotoOps) {
+    return {
+      mainImage: {
+        large: "/portfolio/large/event-photobs.webp",
+        thumb: "/portfolio/thumbs/event-photobs.webp",
+        type: "product",
+      },
+      galleryImages: [
+        {
+          large: "/portfolio/large/event-photobs1.webp",
+          thumb: "/portfolio/thumbs/event-photobs1.webp",
+          type: "product",
+        },
+        {
+          large: "/portfolio/large/event-photobs2.webp",
+          thumb: "/portfolio/thumbs/event-photobs2.webp",
+          type: "product",
+        },
+        {
+          large: "/portfolio/large/event-photobs5.webp",
+          thumb: "/portfolio/thumbs/event-photobs5.webp",
+          type: "product",
+        },
+      ],
+    };
+  }
+
   // 5. Standard match logic for other products
   if (todayMatch) {
     return {
@@ -478,6 +966,9 @@ export function getTodayPortfolioItems(): PortfolioItem[] {
     }
     if (lower.includes("pallet") || lower.includes("box") || lower.includes("crate") || lower.includes("21_jpg")) {
       return { category: "shipping-crates", categoryLabel: "Shipping Crates" };
+    }
+    if (lower.includes("bag") || lower.includes("pouch")) {
+      return { category: "custom-bags", categoryLabel: "Custom Bags" };
     }
     if (lower.includes("furniture") || lower.includes("sofa") || lower.includes("table")) {
       return { category: "furniture", categoryLabel: "Furniture" };

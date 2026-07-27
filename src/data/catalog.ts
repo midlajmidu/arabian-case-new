@@ -3,7 +3,7 @@ import foamImg from "@/assets/hero-foam-inserts.webp";
 import cratesImg from "@/assets/hero-shipping-crates.webp";
 import bagsImg from "@/assets/hero-custom-bags.webp";
 import exhibitionImg from "@/assets/hero-exhibition.webp";
-import furnitureImg from "@/assets/hero-furniture-premium.webp";
+import furnitureImg from "@/assets/hero-furniture-premium.png";
 import hardCasesImg from "@/assets/hero-hard-cases.png";
 
 export interface Product {
