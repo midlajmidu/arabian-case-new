@@ -322,24 +322,20 @@ export function getProductImages(productName: string): ProductImageSet {
     productName.toLowerCase() === "dj tables & flight cases";
 
   if (isDJTables) {
-    const djImages = scannedImages.filter(img => img.baseName === "keyboard case");
-    if (djImages.length > 0) {
-      const main = djImages.find(img => !img.isGallery) || djImages[0];
-      const gallery = djImages.filter(img => img !== main);
-
+    const djImg = scannedImages.find(img => img.stem.toLowerCase() === "dj table");
+    if (djImg) {
       return {
         mainImage: {
-          large: main.url,
-          thumb: main.url,
+          large: djImg.url,
+          thumb: djImg.url,
           type: "product",
         },
         galleryImages: [
-          ...gallery.map(img => ({
-            large: img.url,
-            thumb: img.url,
-            type: "product" as const,
-          })),
-          ...fallbackGallery,
+          {
+            large: djImg.url,
+            thumb: djImg.url,
+            type: "product",
+          },
         ],
       };
     }
@@ -805,25 +801,135 @@ export function getProductImages(productName: string): ProductImageSet {
     productName.toLowerCase() === "tool-control";
 
   if (isToolControlFoam) {
-    return {
-      mainImage: {
+    const aiToolFoamImg = scannedImages.find(img => img.stem.toLowerCase() === "tool control foam");
+    const aiToolCaseImg = scannedImages.find(img => img.stem.toLowerCase().includes("tool control case"));
+    
+    const mainImgUrl = aiToolFoamImg ? aiToolFoamImg.url : (aiToolCaseImg ? aiToolCaseImg.url : "/portfolio/large/tool-box1-rotated.webp");
+
+    const gallery: ProductImage[] = [];
+
+    if (aiToolCaseImg) {
+      gallery.push({
+        large: aiToolCaseImg.url,
+        thumb: aiToolCaseImg.url,
+        type: "product",
+      });
+    }
+
+    gallery.push(
+      {
         large: "/portfolio/large/tool-box1.webp",
         thumb: "/portfolio/thumbs/tool-box1.webp",
         type: "product",
       },
-      galleryImages: [
-        {
-          large: "/portfolio/large/tool-box.webp",
-          thumb: "/portfolio/thumbs/tool-box.webp",
-          type: "product",
-        },
-        {
-          large: "/portfolio/large/toolbox-2.webp",
-          thumb: "/portfolio/thumbs/toolbox-2.webp",
-          type: "product",
-        },
-      ],
+      {
+        large: "/portfolio/large/tool-box.webp",
+        thumb: "/portfolio/thumbs/tool-box.webp",
+        type: "product",
+      },
+      {
+        large: "/portfolio/large/toolbox-2.webp",
+        thumb: "/portfolio/thumbs/toolbox-2.webp",
+        type: "product",
+      }
+    );
+
+    return {
+      mainImage: {
+        large: mainImgUrl,
+        thumb: mainImgUrl,
+        type: "product",
+      },
+      galleryImages: gallery,
     };
+  }
+
+  // 21b. Custom logic for Custom Foam Inserts
+  const isCustomFoamInserts =
+    productName.toLowerCase() === "custom foam inserts" ||
+    productName.toLowerCase() === "custom-foam-inserts" ||
+    (productName.toLowerCase().includes("custom foam") && !productName.toLowerCase().includes("tool"));
+
+  if (isCustomFoamInserts) {
+    const foamImages = scannedImages.filter(img =>
+      img.stem.toLowerCase() === "foam insert" ||
+      img.stem.toLowerCase() === "foam insert1" ||
+      img.stem.toLowerCase() === "foam insert2"
+    );
+
+    foamImages.sort((a, b) => a.stem.localeCompare(b.stem));
+
+    if (foamImages.length > 0) {
+      const main = foamImages.find(img => img.stem.toLowerCase() === "foam insert") || foamImages[0];
+      const gallery = foamImages.filter(img => img !== main);
+
+      return {
+        mainImage: {
+          large: main.url,
+          thumb: main.url,
+          type: "product",
+        },
+        galleryImages: gallery.map(img => ({
+          large: img.url,
+          thumb: img.url,
+          type: "product" as const,
+        })),
+      };
+    }
+  }
+
+  // 21c. Custom logic for Foam Sheets
+  const isFoamSheets =
+    productName.toLowerCase() === "foam sheets" ||
+    productName.toLowerCase() === "foam-sheets" ||
+    productName.toLowerCase().includes("foam sheet");
+
+  if (isFoamSheets) {
+    const foamSheetImg = scannedImages.find(img => img.stem.toLowerCase().includes("foam sheets"));
+    if (foamSheetImg) {
+      return {
+        mainImage: {
+          large: foamSheetImg.url,
+          thumb: foamSheetImg.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: foamSheetImg.url,
+            thumb: foamSheetImg.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
+  }
+
+  // 21d. Custom logic for Foam Blocks
+  const isFoamBlocks =
+    productName.toLowerCase() === "foam blocks" ||
+    productName.toLowerCase() === "foam-blocks" ||
+    productName.toLowerCase().includes("foam block");
+
+  if (isFoamBlocks) {
+    const foamBlockImg = scannedImages.find(img => img.stem.toLowerCase().includes("foam blocks"));
+    if (foamBlockImg) {
+      return {
+        mainImage: {
+          large: foamBlockImg.url,
+          thumb: foamBlockImg.url,
+          type: "product",
+        },
+        galleryImages: [
+          {
+            large: foamBlockImg.url,
+            thumb: foamBlockImg.url,
+            type: "product",
+          },
+          ...fallbackGallery,
+        ],
+      };
+    }
   }
 
   // 22. Custom logic for Shell Scheme Stand

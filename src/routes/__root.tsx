@@ -9,6 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
+import faviconPng from "@/assets/favicon.png";
 import { Navbar } from "@/components/site/Navbar";
 import { Footer } from "@/components/site/Footer";
 import { FloatingWhatsApp } from "@/components/site/FloatingWhatsApp";
@@ -85,6 +86,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "theme-color", content: "#182453" },
     ],
     links: [
+      { rel: "icon", type: "image/png", href: faviconPng },
+      { rel: "shortcut icon", type: "image/png", href: faviconPng },
+      { rel: "apple-touch-icon", href: faviconPng },
       {
         rel: "stylesheet",
         href: appCss,
