@@ -816,23 +816,11 @@ export function getProductImages(productName: string): ProductImageSet {
       });
     }
 
-    gallery.push(
-      {
-        large: "/portfolio/large/tool-box1.webp",
-        thumb: "/portfolio/thumbs/tool-box1.webp",
-        type: "product",
-      },
-      {
-        large: "/portfolio/large/tool-box.webp",
-        thumb: "/portfolio/thumbs/tool-box.webp",
-        type: "product",
-      },
-      {
-        large: "/portfolio/large/toolbox-2.webp",
-        thumb: "/portfolio/thumbs/toolbox-2.webp",
-        type: "product",
-      }
-    );
+    gallery.push({
+      large: "/portfolio/large/tool-box1-rotated.webp",
+      thumb: "/portfolio/thumbs/tool-box1-rotated.webp",
+      type: "product",
+    });
 
     return {
       mainImage: {
