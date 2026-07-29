@@ -486,14 +486,7 @@ export function getProductImages(productName: string): ProductImageSet {
           thumb: palletImage.url,
           type: "product",
         },
-        galleryImages: [
-          {
-            large: palletImage.url,
-            thumb: palletImage.url,
-            type: "product",
-          },
-          ...fallbackGallery,
-        ],
+        galleryImages: [],
       };
     }
   }
@@ -513,14 +506,7 @@ export function getProductImages(productName: string): ProductImageSet {
           thumb: boxImage.url,
           type: "product",
         },
-        galleryImages: [
-          {
-            large: boxImage.url,
-            thumb: boxImage.url,
-            type: "product",
-          },
-          ...fallbackGallery,
-        ],
+        galleryImages: [],
       };
     }
   }
@@ -802,16 +788,16 @@ export function getProductImages(productName: string): ProductImageSet {
 
   if (isToolControlFoam) {
     const aiToolFoamImg = scannedImages.find(img => img.stem.toLowerCase() === "tool control foam");
-    const aiToolCaseImg = scannedImages.find(img => img.stem.toLowerCase().includes("tool control case"));
+    const aiToolCaseV2Img = scannedImages.find(img => img.stem.toLowerCase() === "tool control case v2");
     
-    const mainImgUrl = aiToolFoamImg ? aiToolFoamImg.url : (aiToolCaseImg ? aiToolCaseImg.url : "/portfolio/large/tool-box1-rotated.webp");
+    const mainImgUrl = aiToolFoamImg ? aiToolFoamImg.url : (aiToolCaseV2Img ? aiToolCaseV2Img.url : "/portfolio/large/tool-box1-rotated.webp");
 
     const gallery: ProductImage[] = [];
 
-    if (aiToolCaseImg) {
+    if (aiToolCaseV2Img) {
       gallery.push({
-        large: aiToolCaseImg.url,
-        thumb: aiToolCaseImg.url,
+        large: aiToolCaseV2Img.url,
+        thumb: aiToolCaseV2Img.url,
         type: "product",
       });
     }
