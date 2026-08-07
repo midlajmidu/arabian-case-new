@@ -51,6 +51,12 @@ const scannedImages: ScannedImage[] = Object.entries(todayImages).map(([path, ur
   if (stem.startsWith("WhatsApp Image 2026-07-22")) {
     stem = "mixer case 2";
   }
+  if (stem.startsWith("WhatsApp Image 2026-08-07 at 11.55.20")) {
+    stem = "wooden box";
+  }
+  if (stem.startsWith("WhatsApp Image 2026-08-07 at 12.07.45")) {
+    stem = "wooden pallet";
+  }
 
   // Clean stem of gallery keywords
   const baseName = stem
@@ -478,7 +484,9 @@ export function getProductImages(productName: string): ProductImageSet {
     productName.toLowerCase().includes("pallet");
 
   if (isWoodenPallets) {
-    const palletImage = scannedImages.find(img => img.stem.toLowerCase().includes("wooden pallet"));
+    const palletImage =
+      scannedImages.find(img => img.filename.toLowerCase().includes("whatsapp image 2026-08-07 at 12.07.45")) ||
+      scannedImages.find(img => img.stem.toLowerCase().includes("wooden pallet"));
     if (palletImage) {
       return {
         mainImage: {
@@ -486,7 +494,13 @@ export function getProductImages(productName: string): ProductImageSet {
           thumb: palletImage.url,
           type: "product",
         },
-        galleryImages: [],
+        galleryImages: [
+          {
+            large: palletImage.url,
+            thumb: palletImage.url,
+            type: "product",
+          },
+        ],
       };
     }
   }
@@ -498,7 +512,9 @@ export function getProductImages(productName: string): ProductImageSet {
     productName.toLowerCase().includes("wooden box");
 
   if (isWoodenBoxes) {
-    const boxImage = scannedImages.find(img => img.stem.toLowerCase().includes("wooden box"));
+    const boxImage =
+      scannedImages.find(img => img.filename.toLowerCase().includes("whatsapp image 2026-08-07 at 11.55.20")) ||
+      scannedImages.find(img => img.stem.toLowerCase().includes("wooden box"));
     if (boxImage) {
       return {
         mainImage: {
@@ -506,7 +522,13 @@ export function getProductImages(productName: string): ProductImageSet {
           thumb: boxImage.url,
           type: "product",
         },
-        galleryImages: [],
+        galleryImages: [
+          {
+            large: boxImage.url,
+            thumb: boxImage.url,
+            type: "product",
+          },
+        ],
       };
     }
   }
